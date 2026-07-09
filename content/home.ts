@@ -3,16 +3,16 @@ export const hero = {
   titulo: [
     { texto: "Sua empresa ", destaque: false },
     { texto: "lucrando mais", destaque: true },
-    { texto: ", com processos que ", destaque: false },
-    { texto: "funcionam sozinhos", destaque: true },
+    { texto: ", com processos ", destaque: false },
+    { texto: "mais eficientes", destaque: true },
     { texto: ".", destaque: false },
   ],
   descricao:
-    "Estruturamos a gestão do seu negócio com estratégias sob medida para alcançar mais margem, menos retrabalho e decisões guiadas por dados, não por achismo.",
+    "Estruturamos a gestão e os processos do seu negócio com estratégias sob medida para alcançar mais margem, menos retrabalho e decisões guiadas por dados.",
   estatisticas: [
-    { valor: "150+", rotulo: "Projetos entregues" },
-    { valor: "2x", rotulo: "ROI médio dos clientes" },
-    { valor: "98%", rotulo: "Taxa de satisfação" },
+    { valor: "30+", rotulo: "Projetos entregues" },
+    { valor: "2x", rotulo: "ROI mínimo" },
+    { valor: "+R$15MM", rotulo: "Em lucro entregue" },
   ],
   cartoes: [
     { titulo: "Retorno garantido", texto: "ROI mínimo de 2x o investimento." },
@@ -72,7 +72,9 @@ export const mercados = {
 
 export const roi = {
   titulo: "Na Versak, o objetivo de entrega é balizado por ROI.",
-  destaque: "Com retorno mínimo sobre o dobro do investimento.",
+  destaquePrefixo: "Com retorno mínimo sobre",
+  multiplicador: "2x",
+  destaqueSufixo: "o investimento.",
   nota: "Conforme escopo e premissas estabelecidas.",
 }
 
