@@ -794,8 +794,6 @@ const ICONES: Record<string, LucideIcon> = {
   "Tecnologia": Cpu,
 }
 
-const DESTAQUE = new Set(["Indústria de Manufatura Seriada", "Tecnologia"])
-
 export function Mercados() {
   return (
     <section id="mercados" className="border-t border-line py-24">
@@ -804,13 +802,13 @@ export function Mercados() {
           <SectionHeading eyebrow={mercados.eyebrow} titulo={mercados.titulo} subtitulo={mercados.subtitulo} />
         </Reveal>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>*:nth-child(1)]:lg:col-span-2 [&>*:nth-child(9)]:lg:col-span-2">
           {mercados.grupos.map((grupo, i) => {
             const Icon = ICONES[grupo.nome]
             const linha = Math.floor(i / 3)
             return (
               <Reveal key={grupo.nome} delay={linha * 0.1 + (i % 3) * 0.05}>
-                <GlowCard className={`group h-full p-5 ${DESTAQUE.has(grupo.nome) ? "lg:col-span-2" : ""}`}>
+                <GlowCard className="group h-full p-5">
                   <IconBadge
                     icon={Icon}
                     className="transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-gold/20"
@@ -827,6 +825,8 @@ export function Mercados() {
   )
 }
 ```
+
+> Nota (corrigida após a Task 10): `GlowCard` fica aninhado dentro do `motion.div` do `Reveal`, que é o filho direto real do grid — `col-span-*` aplicado no `GlowCard` não tem efeito (CSS Grid só respeita `grid-column` em filhos diretos). Por isso o destaque de largura é aplicado via seletor `nth-child` no container do grid (`mercados.grupos` tem 9 itens; os índices 0 e 8 — "Indústria de Manufatura Seriada" e "Tecnologia" — correspondem a `nth-child(1)` e `nth-child(9)`, 1-indexado), em vez de uma classe condicional no `GlowCard`.
 
 - [ ] **Step 2: Verificar tipos e lint**
 
