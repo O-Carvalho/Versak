@@ -1,9 +1,11 @@
 "use client"
 
 import { motion } from "motion/react"
+import { CheckCircle2, ShieldCheck, TrendingUp } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { AmbientRing } from "@/components/ui/ambient-ring"
+import { IconBadge } from "@/components/ui/icon-badge"
 import { hero } from "@/content/home"
 import { linkWhatsapp } from "@/content/site"
 
@@ -76,20 +78,39 @@ export function Hero() {
           </motion.dl>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {hero.cartoes.map((cartao, i) => (
-            <motion.div
-              key={cartao.titulo}
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.12 }}
-              className="rounded-md border border-line bg-panel p-5"
-              style={{ marginLeft: i % 2 === 1 ? "2rem" : 0 }}
-            >
-              <p className="font-display text-sm font-semibold text-text">{cartao.titulo}</p>
-              <p className="mt-1 text-sm text-text-muted">{cartao.texto}</p>
-            </motion.div>
-          ))}
+        <div className="relative flex flex-col gap-4">
+          {hero.cartoes.map((cartao, i) => {
+            const Icon = [TrendingUp, CheckCircle2, ShieldCheck][i] ?? TrendingUp
+            const flutuacaoDuracao = [4, 4.6, 5.2][i] ?? 4
+            return (
+              <motion.div
+                key={cartao.titulo}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{
+                  opacity: 1,
+                  x: i % 2 === 1 ? 32 : 0,
+                  y: [0, -6, 0],
+                }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 0.3 + i * 0.12 },
+                  x: { duration: 0.6, delay: 0.3 + i * 0.12 },
+                  y: {
+                    duration: flutuacaoDuracao,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.9 + i * 0.12,
+                  },
+                }}
+                className="flex items-start gap-4 rounded-md border border-line bg-panel p-5 transition-colors hover:border-gold-dim hover:shadow-[var(--shadow-gold-glow)]"
+              >
+                <IconBadge icon={Icon} />
+                <div>
+                  <p className="font-display text-sm font-semibold text-text">{cartao.titulo}</p>
+                  <p className="mt-1 text-sm text-text-muted">{cartao.texto}</p>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </Container>
     </section>
