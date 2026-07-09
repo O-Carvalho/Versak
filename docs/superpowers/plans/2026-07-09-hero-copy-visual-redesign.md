@@ -79,7 +79,17 @@ export function IconBadge({ icon: Icon, className = "" }: { icon: LucideIcon; cl
 }
 ```
 
-- [ ] **Step 2: Criar `GlowCard`**
+- [ ] **Step 2: Adicionar a variável de glow em `theme/tokens.css`**
+
+O box-shadow do glow dourado precisa de um valor de cor com opacidade (`rgba`), que as classes Tailwind geradas a partir de `--color-*` não expressam diretamente em `shadow-[...]`. Em vez de hardcodar o `rgba` dentro do componente (violaria a regra "nenhuma cor hardcoded fora de `theme/tokens.css`"), definir a sombra completa como variável no único arquivo que pode ter esse valor:
+
+Em `theme/tokens.css`, dentro do bloco `@theme`, adicionar depois de `--color-gold-dim`:
+
+```css
+--shadow-gold-glow: 0 0 24px -8px rgba(232, 169, 62, 0.35);
+```
+
+- [ ] **Step 3: Criar `GlowCard`**
 
 ```tsx
 // components/ui/glow-card.tsx
@@ -88,7 +98,7 @@ import type { ReactNode } from "react"
 export function GlowCard({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className={`rounded-md border border-line bg-panel transition-all duration-300 hover:-translate-y-1 hover:border-gold-dim hover:shadow-[0_0_24px_-8px_rgba(232,169,62,0.35)] ${className}`}
+      className={`rounded-md border border-line bg-panel transition-all duration-300 hover:-translate-y-1 hover:border-gold-dim hover:shadow-[var(--shadow-gold-glow)] ${className}`}
     >
       {children}
     </div>
@@ -96,15 +106,15 @@ export function GlowCard({ children, className = "" }: { children: ReactNode; cl
 }
 ```
 
-- [ ] **Step 3: Verificar tipos e lint**
+- [ ] **Step 4: Verificar tipos e lint**
 
 Run: `npx tsc --noEmit && npx eslint components/ui/icon-badge.tsx components/ui/glow-card.tsx`
 Expected: PASS, sem erros (arquivos ainda não são importados em lugar nenhum, mas devem compilar sozinhos).
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
-git add components/ui/icon-badge.tsx components/ui/glow-card.tsx
+git add components/ui/icon-badge.tsx components/ui/glow-card.tsx theme/tokens.css
 git commit -m "feat: add IconBadge and GlowCard shared primitives"
 ```
 
@@ -451,7 +461,7 @@ Substituir o `<div className="flex flex-col gap-4">...</div>` (o bloco que mapei
             delay: 0.9 + i * 0.12,
           },
         }}
-        className="flex items-start gap-4 rounded-md border border-line bg-panel p-5 transition-colors hover:border-gold-dim hover:shadow-[0_0_24px_-8px_rgba(232,169,62,0.35)]"
+        className="flex items-start gap-4 rounded-md border border-line bg-panel p-5 transition-colors hover:border-gold-dim hover:shadow-[var(--shadow-gold-glow)]"
       >
         <IconBadge icon={Icon} />
         <div>
