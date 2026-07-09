@@ -14,6 +14,8 @@
   --color-gold-bright: #f5cc81;
   --color-gold-dim: #7a5c26;
 
+  --shadow-gold-glow: 0 0 24px -8px rgba(232, 169, 62, 0.35);
+
   --color-text: #f6f2e8;
   --color-text-muted: #b7ab92;
   --color-text-dim: #736a57;
