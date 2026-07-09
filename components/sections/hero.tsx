@@ -3,6 +3,7 @@
 import { motion } from "motion/react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
+import { AmbientRing } from "@/components/ui/ambient-ring"
 import { hero } from "@/content/home"
 import { linkWhatsapp } from "@/content/site"
 
@@ -92,33 +93,5 @@ export function Hero() {
         </div>
       </Container>
     </section>
-  )
-}
-
-function AmbientRing() {
-  const raios = [90, 150, 210, 270]
-
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute -right-40 -top-24 h-[520px] w-[520px] opacity-[0.35] sm:-right-20"
-    >
-      {raios.map((r, i) => (
-        <motion.span
-          key={r}
-          className="absolute rounded-full border border-gold-dim"
-          style={{
-            width: r * 2,
-            height: r * 2,
-            left: `calc(50% - ${r}px)`,
-            top: `calc(50% - ${r}px)`,
-          }}
-          animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-          transition={{ duration: 60 + i * 20, repeat: Infinity, ease: "linear" }}
-        >
-          <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-gold" />
-        </motion.span>
-      ))}
-    </div>
   )
 }
