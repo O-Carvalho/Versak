@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/*
+  theme/tokens.css — o único arquivo que muda para reaproveitar este template
+  em outro cliente. Nenhum componente deve ter cor "hardcoded" fora daqui.
+*/
+@theme {
+  --color-bg: #0b0906;
+  --color-panel: #151109;
+  --color-panel-raised: #1d1710;
+  --color-line: #332b1e;
+
+  --color-gold: #e8a93e;
+  --color-gold-bright: #f5cc81;
+  --color-gold-dim: #7a5c26;
+
+  --color-text: #f6f2e8;
+  --color-text-muted: #b7ab92;
+  --color-text-dim: #736a57;
+
+  --font-display: var(--font-oswald);
+  --font-body: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
