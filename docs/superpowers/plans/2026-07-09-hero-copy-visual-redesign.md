@@ -1024,8 +1024,12 @@ git commit -m "feat: add founder photo with ring frame and animated stat counter
 
 - [ ] **Step 1: Reescrever o componente**
 
+> Nota (corrigida após a Task 12): usar `motion.div`/`motion.span` diretamente (via a sintaxe de proxy `motion.X`) dentro de um arquivo sem `"use client"` causa erro em runtime ("Element type is invalid") — ao contrário de importar um componente client nomeado como `Reveal`, o proxy `motion.X` não resolve corretamente vindo de um Server Component. Por isso este arquivo também precisa de `"use client"`.
+
 ```tsx
 // components/sections/cta-final.tsx
+"use client"
+
 import { motion } from "motion/react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
