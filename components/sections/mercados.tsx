@@ -41,8 +41,9 @@ export function Mercados() {
           {mercados.grupos.map((grupo, i) => {
             // `noUncheckedIndexedAccess` makes this lookup type as `LucideIcon | undefined`;
             // all 9 `mercados.grupos` names above exist as ICONES keys, so the fallback
-            // path is unreachable in practice.
-            const Icon = ICONES[grupo.nome] as LucideIcon
+            // path is unreachable in practice. The `?? Briefcase` fallback keeps a future
+            // content-only rename from crashing the page at runtime.
+            const Icon = ICONES[grupo.nome] ?? Briefcase
             const linha = Math.floor(i / 3)
             return (
               <Reveal key={grupo.nome} delay={linha * 0.1 + (i % 3) * 0.05}>

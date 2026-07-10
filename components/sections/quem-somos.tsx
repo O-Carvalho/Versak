@@ -36,7 +36,7 @@ export function QuemSomos() {
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {quemSomos.valores.map((valor, i) => {
-            const Icon = ICONES[valor.letra as keyof typeof ICONES]
+            const Icon = ICONES[valor.letra as keyof typeof ICONES] ?? Target
             return (
               <Reveal key={valor.letra} delay={i * 0.06}>
                 <GlowCard className="flex h-full flex-col gap-3 p-6">
