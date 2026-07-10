@@ -1,9 +1,8 @@
 export const hero = {
-  eyebrow: "Diagnóstico 360º",
   titulo: [
     { texto: "Sua empresa ", destaque: false },
     { texto: "lucrando mais", destaque: true },
-    { texto: ", com processos ", destaque: false },
+    { texto: " com processos ", destaque: false },
     { texto: "mais eficientes", destaque: true },
     { texto: ".", destaque: false },
   ],
