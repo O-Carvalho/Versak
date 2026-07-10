@@ -128,13 +128,13 @@ body {
   color: var(--color-gold);
   background: linear-gradient(
     172deg,
-    #8a6526 0%,
-    #f8e6b4 15%,
+    #6b4a1a 0%,
+    #d9a852 15%,
     #e8a93e 32%,
-    #b9822b 47%,
-    #fbeec6 63%,
-    #d29a34 79%,
-    #7a5620 100%
+    #a3741f 47%,
+    #d9a852 63%,
+    #b9822b 79%,
+    #5c3f15 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
