@@ -87,7 +87,7 @@ export function Hero() {
               return (
                 <div
                   key={cartao.titulo}
-                  className={`hero-glass ${float} flex items-start gap-3 p-4 lg:absolute lg:w-56 ${pos}`}
+                  className={`hero-glass ${float} flex items-start gap-3 p-4 lg:absolute lg:min-h-24 lg:w-64 ${pos}`}
                 >
                   <IconBadge icon={Icon} />
                   <div>
@@ -100,11 +100,6 @@ export function Hero() {
           </div>
         </div>
       </Container>
-
-      <div className="relative mt-14 flex flex-col items-center gap-2">
-        <span className="font-display text-[10px] uppercase tracking-[0.24em] text-text-dim">Scroll</span>
-        <span className="h-4 w-px bg-gradient-to-b from-gold to-transparent" />
-      </div>
     </section>
   )
 }
