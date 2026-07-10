@@ -5,6 +5,7 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { MobileNav } from "@/components/ui/mobile-nav"
+import { Logo } from "@/components/ui/logo"
 import { site, linkWhatsapp } from "@/content/site"
 
 export function Header() {
@@ -23,9 +24,10 @@ export function Header() {
       }`}
     >
       <Container className="relative flex h-20 items-center justify-between">
-        <span className="font-display text-lg font-bold tracking-[0.15em] text-gold">
-          {site.nome.toUpperCase()}
-        </span>
+        <a href="#" className="flex items-center gap-2.5 text-gold">
+          <Logo className="h-9 w-auto" />
+          <span className="font-display text-lg font-bold tracking-[0.15em]">{site.nome.toUpperCase()}</span>
+        </a>
 
         <nav className="hidden items-center gap-8 md:flex" onMouseLeave={() => setHovered(null)}>
           {site.nav.map((item) => (
