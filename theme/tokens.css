@@ -45,3 +45,145 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---- Quem Somos: cartões com letra 3D metálica e brilho no hover ---- */
+@keyframes qs-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.qs-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 15.75rem;
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  background: var(--color-panel);
+  transition:
+    border-color 0.5s,
+    box-shadow 0.5s,
+    transform 0.5s;
+}
+.qs-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-gold-dim);
+  box-shadow: 0 24px 60px -24px rgba(232, 169, 62, 0.55);
+}
+
+.qs-bloom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70%;
+  z-index: 1;
+  opacity: 0;
+  background: linear-gradient(100deg, #6b4e1c, #e8a93e 42%, #f7d79a 55%, #e8a93e 70%, #6b4e1c);
+  background-size: 230% 100%;
+  filter: blur(30px);
+  -webkit-mask-image: linear-gradient(to top, #000 18%, transparent 92%);
+  mask-image: linear-gradient(to top, #000 18%, transparent 92%);
+  transition: opacity 0.55s ease;
+}
+.qs-card:hover .qs-bloom {
+  opacity: 0.9;
+  animation: qs-flow 3.2s ease-in-out infinite;
+}
+
+.qs-rim {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -4px;
+  height: 6px;
+  z-index: 1;
+  opacity: 0;
+  background: linear-gradient(100deg, #9a6f22, #f7d79a 50%, #9a6f22);
+  background-size: 230% 100%;
+  filter: blur(7px);
+  transition: opacity 0.55s ease;
+}
+.qs-card:hover .qs-rim {
+  opacity: 1;
+  animation: qs-flow 3.2s ease-in-out infinite;
+}
+
+.qs-letter {
+  position: absolute;
+  top: -26px;
+  right: 0;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(9rem, 22vw, 11.5rem);
+  color: var(--color-gold);
+  background: linear-gradient(
+    172deg,
+    #8a6526 0%,
+    #f8e6b4 15%,
+    #e8a93e 32%,
+    #b9822b 47%,
+    #fbeec6 63%,
+    #d29a34 79%,
+    #7a5620 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(1px 1px 0 #6b4e1c) drop-shadow(2px 2px 0 #5e4418) drop-shadow(3px 3px 0 #4f3a13)
+    drop-shadow(5px 5px 0 #3d2c0e) drop-shadow(7px 8px 0 #291d07) drop-shadow(10px 13px 12px rgba(0, 0, 0, 0.6));
+  transition: filter 0.5s;
+}
+.qs-card:hover .qs-letter {
+  filter: drop-shadow(1px 1px 0 #7a5a22) drop-shadow(3px 3px 0 #5e4418) drop-shadow(5px 5px 0 #48340f)
+    drop-shadow(8px 9px 0 #2b1e08) drop-shadow(12px 15px 16px rgba(0, 0, 0, 0.68));
+}
+
+.qs-scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(9, 7, 4, 0.88), rgba(9, 7, 4, 0.5) 45%, transparent);
+}
+
+.qs-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 20px;
+}
+.qs-nome {
+  margin: 0 0 7px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+}
+.qs-desc {
+  margin: 0;
+  max-width: 18ch;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #efe6d3;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+  transition: color 0.4s;
+}
+.qs-card:hover .qs-desc {
+  color: #fff;
+}
