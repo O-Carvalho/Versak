@@ -25,7 +25,9 @@ export function Header() {
     >
       <Container className="relative flex h-20 items-center justify-between">
         <a href="#" className="flex items-center gap-2.5 text-gold">
-          <Logo className="h-9 w-auto" />
+          <span aria-hidden>
+            <Logo className="h-9 w-auto" />
+          </span>
           <span className="font-display text-lg font-bold tracking-[0.15em]">{site.nome.toUpperCase()}</span>
         </a>
 
