@@ -45,7 +45,7 @@ lib/seo.ts      → helper de metadata reaproveitável entre projetos
 
 ## Performance / animação
 
-- `motion` (Framer Motion) só onde adiciona valor: hero (entrada em sequência + anel ambiente girando, ecoando o "Diagnóstico 360º" que é a marca da Versak) e `Reveal` (fade-in ao rolar a página, usado em todas as seções abaixo do hero)
+- `motion` (Framer Motion) só onde adiciona valor: hero (entrada em sequência + cards flutuantes), `AmbientRing` (anel dourado giratório, reaproveitado no Hero, ROI Banner, Fundador e CTA Final como assinatura visual do "Diagnóstico 360º"), `CountUp` (contadores animados em estatísticas), `Header`/`MobileNav` (menu mobile e efeito de scroll) e `Reveal` (fade-in ao rolar a página, usado em todas as seções abaixo do hero)
 - `MotionConfig reducedMotion="user"` no layout — quem tem "reduzir movimento" ativado no sistema operacional recebe a página sem animação, automaticamente
 - First Load JS da home: **143 kB** — leve para um site com esse nível de animação
 
