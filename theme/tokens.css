@@ -472,3 +472,52 @@ body {
 .dores-net circle {
   fill: #e8a93e;
 }
+
+/* ---- Setores: cards em duotone dourado ---- */
+.setor-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  height: 20rem;
+  border-radius: 14px;
+  border: 1px solid rgba(232, 169, 62, 0.18);
+  transition: border-color 0.35s;
+}
+.setor-card:hover {
+  border-color: rgba(232, 169, 62, 0.55);
+}
+.setor-img {
+  filter: grayscale(1) contrast(1.06);
+  transition: transform 0.5s ease;
+}
+.setor-card:hover .setor-img {
+  transform: scale(1.07);
+}
+.setor-gold {
+  position: absolute;
+  inset: 0;
+  background: #e8a93e;
+  mix-blend-mode: color;
+}
+.setor-gold2 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(232, 169, 62, 0.12), rgba(122, 92, 38, 0.22));
+  mix-blend-mode: overlay;
+}
+.setor-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(9, 7, 4, 0.96), rgba(9, 7, 4, 0.35) 46%, rgba(9, 7, 4, 0.08) 72%, transparent);
+}
+.setor-seg {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  color: #e7d9bd;
+  transition: all 0.4s ease;
+}
+.setor-card:hover .setor-seg {
+  max-height: 60px;
+  opacity: 1;
+}
