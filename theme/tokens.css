@@ -437,3 +437,38 @@ body {
     display: none;
   }
 }
+
+/* ---- Dores: número metálico 3D + malha de conexão ---- */
+.dores-num {
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1;
+  background: linear-gradient(
+    172deg,
+    #6b4a1a,
+    #d9a852 16%,
+    #e8a93e 34%,
+    #a3741f 50%,
+    #d9a852 66%,
+    #b9822b 82%,
+    #5c3f15
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(1px 1px 0 #5e4418) drop-shadow(2px 2px 0 #4f3a13) drop-shadow(3px 4px 0 #33240b)
+    drop-shadow(5px 6px 6px rgba(0, 0, 0, 0.55));
+}
+
+.dores-net {
+  opacity: 0.5;
+}
+.dores-net line {
+  stroke: rgba(232, 169, 62, 0.22);
+  stroke-width: 1;
+}
+.dores-net circle {
+  fill: #e8a93e;
+}
