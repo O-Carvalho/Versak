@@ -35,7 +35,7 @@ Base: `https://images.unsplash.com/<id>?w=640&h=960&fit=crop&q=72`. Slug = nome 
 
 | Setor | slug | Unsplash id |
 |---|---|---|
-| Indústria de Manufatura Seriada | `industria` | `photo-1565043666747-69f6646db940` |
+| Indústria de Manufatura Seriada | `industria` | `photo-1567789884554-0b844b597180` |
 | Engenharia e Projetos | `engenharia` | `photo-1581092160562-40aa08e78837` |
 | Agronegócio | `agronegocio` | `photo-1500937386664-56d1dfef3854` |
 | Construção Civil | `construcao` | `photo-1541888946425-d81bb19240f5` |
@@ -45,7 +45,7 @@ Base: `https://images.unsplash.com/<id>?w=640&h=960&fit=crop&q=72`. Slug = nome 
 | Serviços | `servicos` | `photo-1497215728101-856f4ea42174` |
 | Tecnologia | `tecnologia` | `photo-1518770660439-4636190af475` |
 
-Fallbacks verificados (200), caso alguma principal falhe no dia: indústria `photo-1504328345606-18bbc8c9d7d1`, agro `photo-1625246333195-78d9c38ad449`, logística `photo-1553413077-190dd305871c`, comércio `photo-1556742049-0cfed4f6a45d`, saúde `photo-1538108149393-fbbd81895907`, serviços `photo-1521737604893-d14cc237f11d`, tecnologia `photo-1526374965328-7f61d4dc18c5`. Se mesmo os fallbacks falharem, gravar um placeholder cinza e sinalizar para troca (o duotone dourado disfarça a diferença).
+Fallbacks verificados (200), caso alguma principal falhe no dia: indústria `photo-1587293852726-70cdb56c2866`, agro `photo-1625246333195-78d9c38ad449`, logística `photo-1553413077-190dd305871c`, comércio `photo-1556742049-0cfed4f6a45d`, saúde `photo-1538108149393-fbbd81895907`, serviços `photo-1521737604893-d14cc237f11d`, tecnologia `photo-1526374965328-7f61d4dc18c5`. Se mesmo os fallbacks falharem, gravar um placeholder cinza e sinalizar para troca (o duotone dourado disfarça a diferença).
 
 ## Referência visual (do mockup aprovado)
 

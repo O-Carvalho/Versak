@@ -43,7 +43,7 @@ const QUERY = "?w=640&h=960&fit=crop&q=72"
 
 // slug -> [id principal, id fallback] (todos verificados HTTP 200 em 2026-07-10)
 const SETORES = [
-  ["industria", "photo-1565043666747-69f6646db940", "photo-1504328345606-18bbc8c9d7d1"],
+  ["industria", "photo-1567789884554-0b844b597180", "photo-1587293852726-70cdb56c2866"],
   ["engenharia", "photo-1581092160562-40aa08e78837", "photo-1581092160562-40aa08e78837"],
   ["agronegocio", "photo-1500937386664-56d1dfef3854", "photo-1625246333195-78d9c38ad449"],
   ["construcao", "photo-1541888946425-d81bb19240f5", "photo-1503387762-592deb58ef4e"],
