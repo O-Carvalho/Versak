@@ -522,10 +522,12 @@ body {
   opacity: 1;
 }
 
-/* ---- CTA final invertido (faixa dourada, texto/botão escuros) ---- */
-.cta-invertido {
-  background: linear-gradient(135deg, #f6d488, #e8a93e 52%, #cf9a3a);
+/* ---- CTA final: glow dourado escuro, mesma linguagem do ROI Banner ---- */
+.cta-final-glow {
+  background:
+    radial-gradient(120% 140% at 50% -10%, rgba(232, 169, 62, 0.16), rgba(122, 92, 38, 0.08) 45%, transparent 72%),
+    var(--color-panel);
 }
-.cta-invertido-quote {
-  color: #5a4212;
+.cta-final-glow-quote {
+  color: #c9a86a;
 }
