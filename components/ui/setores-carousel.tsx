@@ -15,9 +15,9 @@ export function SetoresCarousel({ grupos }: { grupos: readonly Grupo[] }) {
   return (
     <div className="relative mt-12" role="region" aria-label="Setores que atendemos">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4">
+        <div className="-ml-4 flex">
           {grupos.map((grupo) => (
-            <div key={grupo.nome} className="min-w-0 flex-[0_0_78%] sm:flex-[0_0_44%] lg:flex-[0_0_23%]">
+            <div key={grupo.nome} className="min-w-0 flex-[0_0_78%] pl-4 sm:flex-[0_0_44%] lg:flex-[0_0_23%]">
               <article className="setor-card group">
                 <Image
                   src={grupo.imagem}
