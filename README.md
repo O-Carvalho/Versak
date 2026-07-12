@@ -17,7 +17,9 @@ Abre em `http://localhost:3000`.
 
 ## Como reaproveitar para o próximo cliente
 
-Só dois lugares mudam:
+Guia completo, com checklist e passo a passo: [`docs/template-playbook.md`](docs/template-playbook.md).
+
+Resumo rápido — só dois lugares mudam sempre:
 
 1. **`theme/tokens.css`** — cores e (se quiser) fontes. Troque os valores de `--color-*` pela identidade do novo cliente.
 2. **`content/site.ts`** e **`content/home.ts`** — todo o texto, links de WhatsApp, e-mail, redes sociais.
