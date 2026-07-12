@@ -511,15 +511,19 @@ body {
   background: linear-gradient(to top, rgba(9, 7, 4, 0.96), rgba(9, 7, 4, 0.35) 46%, rgba(9, 7, 4, 0.08) 72%, transparent);
 }
 .setor-seg {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
   color: #e7d9bd;
-  transition: all 0.4s ease;
 }
-.setor-card:hover .setor-seg {
-  max-height: 60px;
-  opacity: 1;
+@media (hover: hover) {
+  .setor-seg {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .setor-card:hover .setor-seg {
+    max-height: 60px;
+    opacity: 1;
+  }
 }
 
 /* ---- CTA final: glow dourado escuro, mesma linguagem do ROI Banner ---- */

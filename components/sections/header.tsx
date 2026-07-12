@@ -24,7 +24,14 @@ export function Header() {
       }`}
     >
       <Container className="relative flex h-20 items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 text-gold">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          }}
+          className="flex items-center gap-2.5 text-gold"
+        >
           <span aria-hidden>
             <Logo className="h-9 w-auto" />
           </span>

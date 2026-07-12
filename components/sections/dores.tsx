@@ -4,7 +4,7 @@ import { dores } from "@/content/home"
 
 export function Dores() {
   return (
-    <section id="solucoes" className="relative overflow-hidden border-t border-line bg-panel/40 py-24">
+    <section id="diagnostico" className="relative overflow-hidden border-t border-line bg-panel/40 py-24">
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"

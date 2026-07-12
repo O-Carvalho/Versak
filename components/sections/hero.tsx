@@ -56,7 +56,7 @@ export function Hero() {
             <Button href={linkWhatsapp()} external>
               Quero escalar minha empresa
             </Button>
-            <Button href="#solucoes" variant="ghost">
+            <Button href="#diagnostico" variant="ghost">
               Ver como funciona
             </Button>
           </motion.div>

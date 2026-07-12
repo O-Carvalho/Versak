@@ -12,7 +12,7 @@ export const site = {
   linkedin: "https://linkedin.com/in/victorhbsaura",
   nav: [
     { label: "Quem somos", href: "#quem-somos" },
-    { label: "Soluções", href: "#solucoes" },
+    { label: "Diagnóstico", href: "#diagnostico" },
     { label: "Mercados", href: "#mercados" },
     { label: "Fundador", href: "#fundador" },
   ],
