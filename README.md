@@ -41,13 +41,13 @@ lib/seo.ts      → helper de metadata reaproveitável entre projetos
 - `app/sitemap.ts` e `app/robots.ts` (convenções nativas do App Router)
 - JSON-LD (`schema.org/ProfessionalService`) injetado no `layout.tsx`
 - `next/font/google` self-hospeda Oswald e Inter — zero requisição externa em produção, zero layout shift
-- Server Components por padrão — só `Hero` e `Reveal` são Client Components (por causa da animação), o resto do HTML chega pronto do servidor
+- Server Components por padrão — a maioria do HTML chega pronto do servidor; `Hero`, `Header`/`MobileNav`, `RoiBanner`, `CtaFinal`, `AmbientRing`, `CountUp` e `Reveal` são Client Components (por causa de animação, estado de interação ou scroll)
 
 ## Performance / animação
 
-- `motion` (Framer Motion) só onde adiciona valor: hero (entrada em sequência + anel ambiente girando, ecoando o "Diagnóstico 360º" que é a marca da Versak) e `Reveal` (fade-in ao rolar a página, usado em todas as seções abaixo do hero)
+- `motion` (Framer Motion) só onde adiciona valor: hero (entrada em sequência + cards flutuantes), `AmbientRing` (anel dourado giratório, reaproveitado no Hero, ROI Banner, Fundador e CTA Final como assinatura visual do "Diagnóstico 360º"), `CountUp` (contadores animados em estatísticas), `Header`/`MobileNav` (menu mobile e efeito de scroll) e `Reveal` (fade-in ao rolar a página, usado em todas as seções abaixo do hero)
 - `MotionConfig reducedMotion="user"` no layout — quem tem "reduzir movimento" ativado no sistema operacional recebe a página sem animação, automaticamente
-- First Load JS da home: **143 kB** — leve para um site com esse nível de animação
+- First Load JS da home: **161 kB** — leve para um site com esse nível de animação
 
 ## Próximos passos antes de colocar no ar
 

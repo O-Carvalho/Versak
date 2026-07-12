@@ -1,32 +1,34 @@
 "use client"
 
 import { motion } from "motion/react"
+import { CheckCircle2, ChartColumn, TrendingUp } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
+import { HeroBackdrop } from "@/components/ui/hero-backdrop"
+import { OrbitalCore } from "@/components/ui/orbital-core"
+import { IconBadge } from "@/components/ui/icon-badge"
 import { hero } from "@/content/home"
 import { linkWhatsapp } from "@/content/site"
 
+const cardIcons = [TrendingUp, CheckCircle2, ChartColumn]
+const cardPos = [
+  "lg:right-0 lg:top-6",
+  "lg:left-0 lg:top-1/2 lg:-translate-y-1/2",
+  "lg:bottom-4 lg:right-8",
+]
+const cardFloat = ["hero-float-1", "hero-float-2", "hero-float-3"]
+
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pb-24 pt-20 sm:pt-28">
-      <AmbientRing />
+    <section className="relative overflow-hidden pb-16 pt-20 sm:pt-28">
+      <HeroBackdrop />
 
       <Container className="relative grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 flex w-fit items-center gap-2 font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-gold"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            {hero.eyebrow}
-          </motion.span>
-
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
             className="font-display text-4xl font-bold leading-[1.1] text-text sm:text-5xl lg:text-[3.4rem]"
           >
             {hero.titulo.map((parte, i) => (
@@ -39,7 +41,7 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-6 max-w-lg text-base leading-relaxed text-text-muted"
           >
             {hero.descricao}
@@ -48,13 +50,13 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-9 flex flex-wrap items-center gap-4"
           >
             <Button href={linkWhatsapp()} external>
               Quero escalar minha empresa
             </Button>
-            <Button href="#solucoes" variant="ghost">
+            <Button href="#diagnostico" variant="ghost">
               Ver como funciona
             </Button>
           </motion.div>
@@ -62,7 +64,7 @@ export function Hero() {
           <motion.dl
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-14 grid grid-cols-3 gap-6 border-t border-line pt-8"
           >
             {hero.estatisticas.map((stat) => (
@@ -75,50 +77,29 @@ export function Hero() {
           </motion.dl>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {hero.cartoes.map((cartao, i) => (
-            <motion.div
-              key={cartao.titulo}
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.12 }}
-              className="rounded-md border border-line bg-panel p-5"
-              style={{ marginLeft: i % 2 === 1 ? "2rem" : 0 }}
-            >
-              <p className="font-display text-sm font-semibold text-text">{cartao.titulo}</p>
-              <p className="mt-1 text-sm text-text-muted">{cartao.texto}</p>
-            </motion.div>
-          ))}
+        <div className="relative flex flex-col items-center gap-6 lg:block">
+          <OrbitalCore />
+          <div className="grid w-full gap-4 lg:contents">
+            {hero.cartoes.map((cartao, i) => {
+              const Icon = cardIcons[i] ?? TrendingUp
+              const pos = cardPos[i] ?? ""
+              const float = cardFloat[i] ?? "hero-float-1"
+              return (
+                <div
+                  key={cartao.titulo}
+                  className={`hero-glass ${float} flex items-start gap-3 p-4 lg:absolute lg:min-h-24 lg:w-64 ${pos}`}
+                >
+                  <IconBadge icon={Icon} />
+                  <div>
+                    <p className="font-display text-sm font-semibold text-text">{cartao.titulo}</p>
+                    <p className="mt-1 text-sm text-text-muted">{cartao.texto}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </Container>
     </section>
-  )
-}
-
-function AmbientRing() {
-  const raios = [90, 150, 210, 270]
-
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute -right-40 -top-24 h-[520px] w-[520px] opacity-[0.35] sm:-right-20"
-    >
-      {raios.map((r, i) => (
-        <motion.span
-          key={r}
-          className="absolute rounded-full border border-gold-dim"
-          style={{
-            width: r * 2,
-            height: r * 2,
-            left: `calc(50% - ${r}px)`,
-            top: `calc(50% - ${r}px)`,
-          }}
-          animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-          transition={{ duration: 60 + i * 20, repeat: Infinity, ease: "linear" }}
-        >
-          <span className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-gold" />
-        </motion.span>
-      ))}
-    </div>
   )
 }

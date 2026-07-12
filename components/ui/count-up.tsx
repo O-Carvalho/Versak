@@ -1,0 +1,41 @@
+// components/ui/count-up.tsx
+"use client"
+
+import { useEffect, useLayoutEffect, useRef } from "react"
+import { animate, useInView, useMotionValue, useMotionValueEvent } from "motion/react"
+
+export function CountUp({ value, duration = 1.4 }: { value: string; duration?: number }) {
+  const match = value.match(/^([^\d]*)(\d+(?:[.,]\d+)?)(.*)$/)
+  const ref = useRef<HTMLSpanElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-80px 0px -80px 0px" })
+  const motionValue = useMotionValue(0)
+
+  const prefix = match?.[1] ?? ""
+  const rawNumber = match?.[2] ?? "0"
+  const numeric = parseFloat(rawNumber.replace(",", "."))
+  const suffix = match?.[3] ?? ""
+  const decimals = rawNumber.includes(",") || rawNumber.includes(".") ? 1 : 0
+
+  // Server/no-JS renders the real value; once JS is live we drop to 0 before paint and animate up.
+  useLayoutEffect(() => {
+    if (ref.current) ref.current.textContent = `${prefix}${(0).toFixed(decimals)}${suffix}`
+  }, [prefix, suffix, decimals])
+
+  useEffect(() => {
+    if (!isInView) return
+    const controls = animate(motionValue, numeric, { duration, ease: [0.22, 1, 0.36, 1] })
+    return () => controls.stop()
+  }, [isInView, numeric, duration, motionValue])
+
+  useMotionValueEvent(motionValue, "change", (latest) => {
+    if (ref.current) {
+      ref.current.textContent = `${prefix}${latest.toFixed(decimals)}${suffix}`
+    }
+  })
+
+  if (!match) {
+    return <span>{value}</span>
+  }
+
+  return <span ref={ref}>{value}</span>
+}

@@ -1,18 +1,17 @@
 export const hero = {
-  eyebrow: "Diagnóstico 360º",
   titulo: [
     { texto: "Sua empresa ", destaque: false },
     { texto: "lucrando mais", destaque: true },
-    { texto: ", com processos que ", destaque: false },
-    { texto: "funcionam sozinhos", destaque: true },
+    { texto: " com processos ", destaque: false },
+    { texto: "mais eficientes", destaque: true },
     { texto: ".", destaque: false },
   ],
   descricao:
-    "Estruturamos a gestão do seu negócio com estratégias sob medida para alcançar mais margem, menos retrabalho e decisões guiadas por dados, não por achismo.",
+    "Estruturamos a gestão e os processos do seu negócio com estratégias sob medida para alcançar mais margem, menos retrabalho e decisões guiadas por dados.",
   estatisticas: [
-    { valor: "150+", rotulo: "Projetos entregues" },
-    { valor: "2x", rotulo: "ROI médio dos clientes" },
-    { valor: "98%", rotulo: "Taxa de satisfação" },
+    { valor: "30+", rotulo: "Projetos entregues" },
+    { valor: "2x", rotulo: "ROI mínimo" },
+    { valor: "+R$15MM", rotulo: "Em lucro entregue" },
   ],
   cartoes: [
     { titulo: "Retorno garantido", texto: "ROI mínimo de 2x o investimento." },
@@ -58,21 +57,23 @@ export const mercados = {
   titulo: "Nossa atuação não está limitada a um único segmento",
   subtitulo: "Somos especialistas em metodologias de gestão e processos que se adaptam a cada negócio.",
   grupos: [
-    { nome: "Indústria de Manufatura Seriada", segmentos: "Autopeças, Metalurgia, Alimentos, Têxtil, Química" },
-    { nome: "Engenharia e Projetos", segmentos: "Máquinas Especiais, Automação, Empresas EPC" },
-    { nome: "Agronegócio", segmentos: "Produtores Rurais, Cooperativas, Agroindústrias" },
-    { nome: "Construção Civil", segmentos: "Construtoras, Incorporadoras, Obras Industriais" },
-    { nome: "Logística e Transporte", segmentos: "Transportadoras, Centros de Distribuição, Frotas" },
-    { nome: "Comércio", segmentos: "Atacadistas, Distribuidores, Varejo" },
-    { nome: "Saúde", segmentos: "Hospitais, Clínicas, Laboratórios" },
-    { nome: "Serviços", segmentos: "Facilities, Consultorias, Escritórios de Engenharia" },
-    { nome: "Tecnologia", segmentos: "Software, SaaS, Infraestrutura de TI, IA" },
+    { nome: "Indústria de Manufatura Seriada", segmentos: "Autopeças, Metalurgia, Alimentos, Têxtil, Química", imagem: "/setores/industria.webp" },
+    { nome: "Engenharia e Projetos", segmentos: "Máquinas Especiais, Automação, Empresas EPC", imagem: "/setores/engenharia.webp" },
+    { nome: "Agronegócio", segmentos: "Produtores Rurais, Cooperativas, Agroindústrias", imagem: "/setores/agronegocio.webp" },
+    { nome: "Construção Civil", segmentos: "Construtoras, Incorporadoras, Obras Industriais", imagem: "/setores/construcao.webp" },
+    { nome: "Logística e Transporte", segmentos: "Transportadoras, Centros de Distribuição, Frotas", imagem: "/setores/logistica.webp" },
+    { nome: "Comércio", segmentos: "Atacadistas, Distribuidores, Varejo", imagem: "/setores/comercio.webp" },
+    { nome: "Saúde", segmentos: "Hospitais, Clínicas, Laboratórios", imagem: "/setores/saude.webp" },
+    { nome: "Serviços", segmentos: "Facilities, Consultorias, Escritórios de Engenharia", imagem: "/setores/servicos.webp" },
+    { nome: "Tecnologia", segmentos: "Software, SaaS, Infraestrutura de TI, IA", imagem: "/setores/tecnologia.webp" },
   ],
 }
 
 export const roi = {
   titulo: "Na Versak, o objetivo de entrega é balizado por ROI.",
-  destaque: "Com retorno mínimo sobre o dobro do investimento.",
+  destaquePrefixo: "Com retorno mínimo sobre",
+  multiplicador: "2x",
+  destaqueSufixo: "o investimento.",
   nota: "Conforme escopo e premissas estabelecidas.",
 }
 

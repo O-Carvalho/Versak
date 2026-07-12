@@ -22,7 +22,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  ...buildMetadata({ titulo: `${site.nome} — ${site.tagline}` }),
+  ...buildMetadata({ titulo: site.nome }),
   metadataBase: new URL(site.url),
 }
 
