@@ -1,5 +1,6 @@
 import { ExternalLink, Mail } from "lucide-react"
 import { Container } from "@/components/ui/container"
+import { BackToTop } from "@/components/ui/back-to-top"
 import { site } from "@/content/site"
 
 export function Footer() {
@@ -14,7 +15,7 @@ export function Footer() {
         <p>
           © {new Date().getFullYear()} {site.nome} Serviços. Todos os direitos reservados.
         </p>
-        <div className="flex gap-6">
+        <div className="flex items-center gap-6">
           <a href={`mailto:${site.email}`} className="flex items-center gap-1.5 hover:text-text-muted">
             <Mail className="h-4 w-4" />
             {site.email}
@@ -28,6 +29,7 @@ export function Footer() {
             <ExternalLink className="h-4 w-4" />
             LinkedIn
           </a>
+          <BackToTop />
         </div>
       </Container>
     </footer>
