@@ -521,3 +521,11 @@ body {
   max-height: 60px;
   opacity: 1;
 }
+
+/* ---- CTA final invertido (faixa dourada, texto/botão escuros) ---- */
+.cta-invertido {
+  background: linear-gradient(135deg, #f6d488, #e8a93e 52%, #cf9a3a);
+}
+.cta-invertido-quote {
+  color: #5a4212;
+}
