@@ -78,7 +78,7 @@ export function Hero() {
         </div>
 
         <div className="relative flex flex-col items-center gap-6 lg:block">
-          <OrbitalCore />
+          <OrbitalCore className="hidden lg:block" />
           <div className="grid w-full gap-4 lg:contents">
             {hero.cartoes.map((cartao, i) => {
               const Icon = cardIcons[i] ?? TrendingUp
