@@ -20,9 +20,9 @@ export function RoiBanner() {
       <Container className="relative text-center">
         <Reveal>
           <p className="mx-auto max-w-3xl font-display text-2xl font-semibold leading-snug text-text sm:text-3xl">
-            {roi.titulo}{" "}
+            {roi.titulo}
             <motion.span
-              className="text-gold"
+              className="mt-1 block text-gold"
               animate={{ opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
