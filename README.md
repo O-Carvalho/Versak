@@ -17,7 +17,8 @@ Abre em `http://localhost:3000`.
 
 ## Como reaproveitar para o próximo cliente
 
-Guia completo, com checklist e passo a passo: [`docs/template-playbook.md`](docs/template-playbook.md).
+- **Método de replicação** (estratégia de repo, tiers, passo a passo): [`docs/template-playbook.md`](docs/template-playbook.md).
+- **Banco de design** (como cada efeito visual foi feito — órbita 3D, cards de vidro, letras metálicas, brilho que "anda", carrossel duotone, animações — pra reaproveitar em outros sites): [`docs/design-system.md`](docs/design-system.md).
 
 Resumo rápido — só dois lugares mudam sempre:
 
