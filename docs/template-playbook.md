@@ -6,12 +6,6 @@ para virar **template-base** de landing pages institucionais B2B/serviços
 você e eu seguimos toda vez que fechamos um cliente novo (ex.: a estética
 automotiva) e queremos partir deste projeto em vez de começar do zero.
 
-> **Documento irmão:** para *como cada efeito visual foi construído* (órbita 3D,
-> cards de vidro, letras metálicas, o brilho dourado que "anda", carrossel
-> duotone, animações) e reaproveitá-los, ver [`docs/design-system.md`](design-system.md)
-> — o banco de design vivo. Este playbook é *como tocar o projeto*; o banco é
-> *como os efeitos são feitos*.
-
 ## 1. Estratégia de repositório: um repo novo e independente por cliente
 
 **Não** reaproveite este mesmo repo/branch para o próximo cliente. Cada
