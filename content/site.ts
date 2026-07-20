@@ -8,7 +8,7 @@ export const site = {
     numero: "5515997260026",
     mensagemPadrao: "Olá! Quero saber mais sobre o diagnóstico da Versak.",
   },
-  email: "adm@versak.onmicrosoft.com",
+  email: "victor@versak.com.br",
   linkedin: "https://linkedin.com/in/victorhbsaura",
   nav: [
     { label: "Quem somos", href: "#quem-somos" },

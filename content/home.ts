@@ -24,7 +24,7 @@ export const quemSomos = {
   eyebrow: "Quem somos",
   titulo: "Uma consultoria pensada para durar",
   texto:
-    "Uma empresa criada com o objetivo de transformar a lucratividade e a perenidade de negócios e parceiros, unindo conceitos de Gestão Estratégica, Gestão Financeira e Ferramentas Lean, a fim de agregar valor real e cultural em suas entregas, respeitando histórias e alavancando sonhos.",
+    "Uma empresa criada com o objetivo de transformar a lucratividade e a perenidade de negócios e parceiros, unindo conceitos de Gestão Estratégica, Gestão de Processos e Ferramentas Lean, a fim de agregar valor real e cultural em suas entregas, respeitando histórias e alavancando sonhos.",
   valores: [
     { letra: "V", nome: "Versatilidade", texto: "Capacidade de adaptação a diferentes cenários." },
     { letra: "E", nome: "Estratégia", texto: "Criar e executar ações que extraiam os melhores resultados." },
@@ -79,7 +79,7 @@ export const roi = {
 
 export const fundador = {
   eyebrow: "Background do fundador",
-  nome: "Victor H. B. Saura",
+  nome: "Victor Saura",
   cargo: "Diretor Executivo / Consultor Empresarial",
   numeros: [
     { valor: "30+", rotulo: "Projetos de consultoria em Lean Manufacturing entregues" },
