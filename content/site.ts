@@ -2,13 +2,13 @@ export const site = {
   nome: "Versak",
   tagline: "Ajudando empresas a escrever um novo capítulo de sucesso",
   descricaoSeo:
-    "Diagnóstico empresarial 360º e consultoria de gestão para empresas que querem lucrar mais com processos que funcionam sozinhos.",
+    "Diagnóstico empresarial 360º e consultoria de gestão para empresas que querem lucrar mais com processos mais eficientes.",
   url: "https://versak.com.br",
   whatsapp: {
     numero: "5515997260026",
-    mensagemPadrao: "Olá! Quero saber mais sobre o diagnóstico da Versak.",
+    mensagemPadrao: "Olá, quero alavancar minha empresa e gostaria de saber mais sobre os serviços da Versak",
   },
-  email: "victor@versak.com.br",
+  email: "comercial@versak.com.br",
   linkedin: "https://linkedin.com/in/victorhbsaura",
   nav: [
     { label: "Quem somos", href: "#quem-somos" },

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
-  theme/tokens.css — o único arquivo que muda para reaproveitar este template
-  em outro cliente. Nenhum componente deve ter cor "hardcoded" fora daqui.
+  theme/tokens.css — única fonte de cores do site.
+  Nenhum componente deve ter cor "hardcoded" fora daqui.
 */
 @theme {
   --color-bg: #0b0906;
