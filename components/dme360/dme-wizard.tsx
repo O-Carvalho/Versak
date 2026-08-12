@@ -11,14 +11,6 @@ const CHAVE_DRAFT = "dme360-draft-v1"
 const LEAD_VAZIO: Lead = { nome: "", empresa: "", cargo: "", email: "", whatsapp: "", consentimento: false }
 const TOTAL_QUESTOES = DME360_DIMENSOES.reduce((a, d) => a + d.questoes.length, 0)
 
-const DESCRICAO_FAIXA: Record<string, string> = {
-  "Caótico": "Ausência de padrões, controles e previsibilidade; gestão reativa e dependente de pessoas-chave.",
-  "Consciente": "Reconhecimento dos problemas e existência de iniciativas isoladas, ainda sem consistência.",
-  "Definido": "Processos, práticas e responsabilidades formalizados; gestão parcialmente estruturada.",
-  "Gerenciado": "Gestão sistemática baseada em indicadores, rituais e acompanhamento recorrente.",
-  "Otimizado": "Melhoria contínua, inovação, aprendizado organizacional e alta performance sustentada.",
-}
-
 function carregarDraft(): Draft | null {
   try {
     const bruto = localStorage.getItem(CHAVE_DRAFT)
@@ -97,7 +89,7 @@ export function DmeWizard() {
             consentimento: true,
           },
           respostas,
-          duracaoSegundos: Math.round((Date.now() - iniciadoEm) / 1000),
+          duracaoSegundos: Math.max(0, Math.round((Date.now() - iniciadoEm) / 1000)),
           origem: origemRef.current,
         }),
       })
@@ -279,7 +271,7 @@ export function DmeWizard() {
           <p className="mt-2 font-display text-6xl font-bold text-gold">{resultado.ime.toFixed(2).replace(".", ",")}</p>
           <p className="mt-2 font-display text-2xl font-semibold text-text">{resultado.classificacao}</p>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-text-muted">
-            {DESCRICAO_FAIXA[resultado.classificacao] ?? ""}
+            {DME360_ESCALA.find((e) => e.rotulo === resultado.classificacao)?.descricao ?? ""}
           </p>
           <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-text-muted">
             O relatório completo, dimensão por dimensão, será apresentado pela equipe Versak.

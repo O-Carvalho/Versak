@@ -4,6 +4,8 @@ import { DME360_DIMENSOES, DME360_VERSAO } from "@/content/dme360"
 import { calcularPontuacao } from "@/lib/dme360-score"
 import { montarEmailResumo } from "@/lib/dme360-email"
 
+export const maxDuration = 10
+
 const chavesQuestoes = DME360_DIMENSOES.flatMap((d) => d.questoes.map((q) => `${d.id}:${q.codigo}`))
 
 const respostasShape = z.object(
@@ -20,7 +22,7 @@ const corpoSchema = z.object({
     consentimento: z.literal(true),
   }),
   respostas: respostasShape,
-  duracaoSegundos: z.number().int().positive().optional(),
+  duracaoSegundos: z.number().int().nonnegative().optional(),
   origem: z.string().trim().max(50).optional(),
 })
 
@@ -87,6 +89,7 @@ export async function POST(request: Request) {
         method: "POST",
         headers: { Authorization: `Bearer ${env.resendKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({ from: env.emailFrom, to: [env.emailTo], subject: assunto, html }),
+        signal: AbortSignal.timeout(5000),
       })
       if (envio.ok && linha) {
         await fetch(`${env.url}/rest/v1/dme_submissions?id=eq.${linha.id}`, {
@@ -97,6 +100,7 @@ export async function POST(request: Request) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email_enviado: true }),
+          signal: AbortSignal.timeout(5000),
         })
       } else if (!envio.ok) {
         console.error("dme360: falha no e-mail", envio.status, await envio.text())
