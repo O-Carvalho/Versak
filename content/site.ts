@@ -18,6 +18,6 @@ export const site = {
   ],
 } as const
 
-export function linkWhatsapp(mensagem = site.whatsapp.mensagemPadrao) {
+export function linkWhatsapp(mensagem: string = site.whatsapp.mensagemPadrao) {
   return `https://wa.me/${site.whatsapp.numero}?text=${encodeURIComponent(mensagem)}`
 }
