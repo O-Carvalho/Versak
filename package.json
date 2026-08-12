@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "icons:gen": "node scripts/gen-icons.mjs",
     "trace:logo": "node scripts/trace-logo.mjs",
-    "setores:fetch": "node scripts/fetch-setores.mjs"
+    "setores:fetch": "node scripts/fetch-setores.mjs",
+    "dme360:import": "node scripts/import-dme360.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.3.0",
@@ -32,6 +33,7 @@
     "potrace": "^2.1.8",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "xlsx": "^0.18.5"
   }
 }
