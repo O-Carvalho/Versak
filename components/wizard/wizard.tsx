@@ -24,7 +24,7 @@ export type WizardProps<TResultado> = {
   telaFinal: (resultado: TResultado) => ReactNode
 }
 
-const LEAD_VAZIO: WizardLead = { nome: "", empresa: "", email: "", whatsapp: "", consentimento: false }
+const LEAD_VAZIO: WizardLead = { nome: "", empresa: "", cargo: "", email: "", whatsapp: "", consentimento: false }
 
 export function Wizard<TResultado>({
   questionario,
@@ -91,6 +91,17 @@ export function Wizard<TResultado>({
     setRespostas((r) => ({ ...r, [chave]: valor }))
   }, [])
 
+  // Escape hatch para computador compartilhado: descarta o rascunho restaurado
+  // (nome, e-mail, WhatsApp e respostas de outra pessoa) e recomeça do zero.
+  function recomecar() {
+    limpar()
+    setLead(LEAD_VAZIO)
+    setRespostas({})
+    setEtapaAtual(0)
+    setIniciadoEm(Date.now())
+    setRetomado(false)
+  }
+
   async function enviar() {
     setEnviando(true)
     setErroEnvio(null)
@@ -105,6 +116,7 @@ export function Wizard<TResultado>({
         lead: {
           nome: lead.nome.trim(),
           empresa: lead.empresa.trim(),
+          cargo: (lead.cargo ?? "").trim() || undefined,
           email: lead.email.trim(),
           whatsapp: lead.whatsapp.trim(),
           consentimento: true,
@@ -127,12 +139,19 @@ export function Wizard<TResultado>({
 
   // ---------- Abertura ----------
   if (tela === "abertura") {
-    const campos = [
-      ["nome", "Seu nome", "text", "Como podemos te chamar"],
-      ["empresa", "Empresa", "text", "Nome da empresa avaliada"],
-      ["email", "E-mail", "email", "voce@empresa.com.br"],
-      ["whatsapp", "WhatsApp", "tel", "(00) 00000-0000"],
-    ] as const
+    type CampoLead = readonly [Exclude<keyof WizardLead, "consentimento">, string, string, string, boolean]
+    const camposBase: CampoLead[] = [
+      ["nome", "Seu nome", "text", "Como podemos te chamar", true],
+      ["empresa", "Empresa", "text", "Nome da empresa avaliada", true],
+      ["email", "E-mail", "email", "voce@empresa.com.br", true],
+      ["whatsapp", "WhatsApp", "tel", "(00) 00000-0000", true],
+    ]
+    const camposLead: CampoLead[] = [
+      ...camposBase,
+      ...(questionario.capturarCargoNaAbertura
+        ? [["cargo", "Cargo / função", "text", "Seu cargo na empresa", false] as CampoLead]
+        : []),
+    ]
     return (
       <div className="wz-ambient flex min-h-screen items-center justify-center p-6 sm:p-8">
         <div className="wz-ghost-ring hidden sm:block" />
@@ -156,16 +175,17 @@ export function Wizard<TResultado>({
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              {campos.map(([campo, rotulo, tipo, placeholder]) => (
+              {camposLead.map(([campo, rotulo, tipo, placeholder, obrigatorio]) => (
                 <label key={campo} className="flex flex-col gap-1.5">
                   <span className="font-display text-[10.5px] uppercase tracking-[0.12em] text-text-muted">
-                    {rotulo}*
+                    {rotulo}
+                    {obrigatorio && "*"}
                   </span>
                   <input
                     type={tipo}
                     className="wz-input"
                     placeholder={placeholder}
-                    value={lead[campo]}
+                    value={lead[campo] ?? ""}
                     onChange={(e) => setLead((l) => ({ ...l, [campo]: e.target.value }))}
                   />
                 </label>
@@ -195,6 +215,16 @@ export function Wizard<TResultado>({
             >
               {retomado ? "Continuar de onde parei" : "Iniciar"}
             </button>
+
+            {retomado && (
+              <button
+                type="button"
+                className="mt-4 block w-full text-center text-xs text-text-dim underline-offset-2 hover:underline"
+                onClick={recomecar}
+              >
+                Não é você? Recomeçar
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -302,19 +332,36 @@ export function Wizard<TResultado>({
                   {bloco.grupo}
                 </h2>
               )}
-              {bloco.campos.map((campo) => (
-                <div key={campo.chave} className="wz-qcard">
-                  <p className="mb-5 max-w-[560px] text-[16px] font-medium leading-relaxed sm:text-[18px]">
+              {bloco.campos.map((campo) => {
+                const rotuloCampoTexto = (
+                  <>
                     {campo.rotulo}
                     {!campo.obrigatorio && <span className="ml-2 text-xs text-text-dim">(opcional)</span>}
-                  </p>
-                  <CampoInput
-                    campo={campo}
-                    valor={respostas[campo.chave]}
-                    onChange={(valor) => responder(campo.chave, valor)}
-                  />
-                </div>
-              ))}
+                  </>
+                )
+                const usaLabel = campo.tipo !== "opcoes" && campo.tipo !== "escala"
+                return (
+                  <div key={campo.chave} className="wz-qcard">
+                    {usaLabel ? (
+                      <label
+                        htmlFor={campo.chave}
+                        className="mb-5 block max-w-[560px] text-[16px] font-medium leading-relaxed sm:text-[18px]"
+                      >
+                        {rotuloCampoTexto}
+                      </label>
+                    ) : (
+                      <p className="mb-5 max-w-[560px] text-[16px] font-medium leading-relaxed sm:text-[18px]">
+                        {rotuloCampoTexto}
+                      </p>
+                    )}
+                    <CampoInput
+                      campo={campo}
+                      valor={respostas[campo.chave]}
+                      onChange={(valor) => responder(campo.chave, valor)}
+                    />
+                  </div>
+                )
+              })}
             </section>
           ))}
 
@@ -337,7 +384,11 @@ export function Wizard<TResultado>({
               disabled={!tudoCompleto || enviando}
               onClick={enviar}
             >
-              {enviando ? "Enviando..." : faltam > 0 ? `Faltam ${faltam}` : "Concluir"}
+              {enviando
+                ? "Enviando..."
+                : !tudoCompleto
+                  ? `Faltam ${progresso.total - progresso.respondidos}`
+                  : "Concluir"}
             </button>
           ) : (
             <button
@@ -346,7 +397,9 @@ export function Wizard<TResultado>({
               disabled={faltam > 0}
               onClick={() => setEtapaAtual((i) => i + 1)}
             >
-              {faltam > 0 ? `Faltam ${faltam}` : `Próximo ${questionario.rotuloEtapa.toLowerCase()}`}
+              {faltam > 0
+                ? `Faltam ${faltam}`
+                : `${questionario.generoEtapa === "f" ? "Próxima" : "Próximo"} ${questionario.rotuloEtapa.toLowerCase()}`}
             </button>
           )}
         </div>

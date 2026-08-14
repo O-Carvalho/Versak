@@ -28,7 +28,14 @@ export function useWizardDraft(questionarioId: string, versao: string) {
       const bruto = localStorage.getItem(chave)
       if (bruto) {
         const draft = JSON.parse(bruto) as WizardDraft
-        if (draft.versao === versao) setInicial(draft)
+        const seteDiasMs = 7 * 24 * 60 * 60 * 1000
+        const expirado = Date.now() - draft.iniciadoEm >= seteDiasMs
+        if (draft.versao === versao && !expirado) {
+          setInicial(draft)
+        } else if (expirado) {
+          // rascunho velho demais: descarta para não expor dados de PII antigos
+          localStorage.removeItem(chave)
+        }
       }
     } catch {
       // rascunho ilegível: começa do zero

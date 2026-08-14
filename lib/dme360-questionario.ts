@@ -13,7 +13,9 @@ export const DME360_QUESTIONARIO: Questionario = {
   versao: DME360_VERSAO,
   rotuloEtapa: "Dimensão",
   rotuloEtapaPlural: "Dimensões",
+  generoEtapa: "f",
   tempoEstimado: "35 a 45 minutos",
+  capturarCargoNaAbertura: true,
   etapas: DME360_DIMENSOES.map(
     (dim): Etapa => ({
       id: dim.id,

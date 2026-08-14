@@ -42,7 +42,7 @@ export function WizardRail({
 
       <div className="hidden lg:block">
         <p className="mb-2 font-display text-[10px] uppercase tracking-[0.12em] text-text-dim">
-          Ir para um {questionario.rotuloEtapa.toLowerCase()}
+          Ir para {questionario.generoEtapa === "f" ? "uma" : "um"} {questionario.rotuloEtapa.toLowerCase()}
         </p>
         <EtapaDropdown
           questionario={questionario}

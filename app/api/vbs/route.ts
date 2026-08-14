@@ -77,6 +77,7 @@ export async function POST(request: Request) {
       Prefer: "return=representation",
     },
     body: JSON.stringify(registro),
+    signal: AbortSignal.timeout(5000),
   })
   if (!insercao.ok) {
     console.error("vbs: falha ao gravar no Supabase", insercao.status, await insercao.text())

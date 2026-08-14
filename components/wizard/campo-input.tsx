@@ -13,7 +13,11 @@ export function CampoInput({ campo, valor, onChange }: Props) {
     const escala = campo.tipo === "escala"
     const opcoes = campo.opcoes ?? []
     return (
-      <div className={escala ? "grid grid-cols-5 gap-2" : "flex flex-wrap gap-2"}>
+      <div
+        role="group"
+        aria-label={campo.rotulo}
+        className={escala ? "grid grid-cols-5 gap-2" : "flex flex-wrap gap-2"}
+      >
         {opcoes.map((opcao) => {
           const ativa = valor === opcao.valor
           return (
@@ -22,6 +26,7 @@ export function CampoInput({ campo, valor, onChange }: Props) {
               type="button"
               title={opcao.descricao}
               onClick={() => onChange(opcao.valor)}
+              aria-pressed={ativa}
               className={`wz-opt ${escala ? "wz-opt-escala" : ""} ${ativa ? "wz-opt-ativa" : ""}`}
             >
               <span className={escala ? "font-display text-lg font-semibold" : ""}>{opcao.rotulo}</span>
@@ -36,6 +41,7 @@ export function CampoInput({ campo, valor, onChange }: Props) {
   if (campo.tipo === "texto-longo") {
     return (
       <textarea
+        id={campo.chave}
         className="wz-input"
         rows={3}
         value={String(valor ?? "")}
@@ -47,6 +53,7 @@ export function CampoInput({ campo, valor, onChange }: Props) {
 
   return (
     <input
+      id={campo.chave}
       type={campo.tipo === "numero" ? "number" : "text"}
       className="wz-input"
       value={String(valor ?? "")}

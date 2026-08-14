@@ -32,7 +32,9 @@ export type Questionario = {
   versao: string
   rotuloEtapa: string // "Bloco" | "Dimensão"
   rotuloEtapaPlural?: string // plural correto, quando o "s" naive não serve (ex.: "Dimensões")
+  generoEtapa: "m" | "f" // gênero gramatical de rotuloEtapa, para concordância ("Próximo"/"Próxima", "um"/"uma")
   tempoEstimado: string // "5 a 10 minutos"
+  capturarCargoNaAbertura?: boolean // pede "Cargo / função" na tela de abertura (quando o questionário não já pergunta isso em algum bloco)
   etapas: Etapa[]
 }
 
@@ -41,6 +43,7 @@ export type Respostas = Record<string, string | number>
 export type WizardLead = {
   nome: string
   empresa: string
+  cargo?: string
   email: string
   whatsapp: string
   consentimento: boolean

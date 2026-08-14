@@ -5,6 +5,7 @@ export const VBS_QUESTIONARIO: Questionario = {
   id: "vbs",
   versao: VBS_VERSAO,
   rotuloEtapa: "Bloco",
+  generoEtapa: "m",
   tempoEstimado: "5 a 10 minutos",
   etapas: VBS_BLOCOS.map(
     (bloco): Etapa => ({
