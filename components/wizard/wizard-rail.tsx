@@ -25,7 +25,7 @@ export function WizardRail({
   return (
     <aside className="wz-rail flex w-full shrink-0 flex-row items-center gap-4 border-b border-line px-5 py-4 lg:sticky lg:top-0 lg:h-screen lg:w-[340px] lg:flex-col lg:items-stretch lg:gap-0 lg:border-b-0 lg:px-9 lg:py-11">
       <span className="hidden font-display text-lg font-bold tracking-[0.08em] lg:mb-12 lg:flex lg:items-center lg:gap-2.5">
-        <span className="h-[7px] w-[7px] rounded-full bg-gold shadow-[0_0_0_4px_rgba(232,169,62,0.15)]" />
+        <span className="h-[7px] w-[7px] rounded-full bg-gold shadow-[var(--shadow-gold-dot)]" />
         VERSAK
       </span>
 

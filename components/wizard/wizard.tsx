@@ -42,6 +42,7 @@ export function Wizard<TResultado>({
   const [respostas, setRespostas] = useState<Respostas>({})
   const [iniciadoEm, setIniciadoEm] = useState(() => Date.now())
   const [retomado, setRetomado] = useState(false)
+  const [restaurado, setRestaurado] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [erroEnvio, setErroEnvio] = useState<string | null>(null)
   const [resultado, setResultado] = useState<TResultado | null>(null)
@@ -60,13 +61,14 @@ export function Wizard<TResultado>({
     }
     const origem = new URLSearchParams(window.location.search).get("o")
     if (origem) origemRef.current = origem.slice(0, 50)
+    setRestaurado(true)
   }, [pronto, inicial])
 
   // Autosave a cada mudança relevante (não persiste a tela final).
   useEffect(() => {
-    if (!pronto || resultado) return
+    if (!pronto || !restaurado || resultado) return
     salvar({ versao: questionario.versao, tela, etapaAtual, lead, respostas, iniciadoEm })
-  }, [pronto, resultado, salvar, questionario.versao, tela, etapaAtual, lead, respostas, iniciadoEm])
+  }, [pronto, restaurado, resultado, salvar, questionario.versao, tela, etapaAtual, lead, respostas, iniciadoEm])
 
   useEffect(() => {
     window.scrollTo(0, 0)
