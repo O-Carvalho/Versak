@@ -31,6 +31,7 @@ export type Questionario = {
   id: string // "vbs" | "dme360"
   versao: string
   rotuloEtapa: string // "Bloco" | "Dimensão"
+  rotuloEtapaPlural?: string // plural correto, quando o "s" naive não serve (ex.: "Dimensões")
   tempoEstimado: string // "5 a 10 minutos"
   etapas: Etapa[]
 }

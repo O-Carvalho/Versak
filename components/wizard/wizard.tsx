@@ -145,7 +145,7 @@ export function Wizard<TResultado>({
             <div className="mb-7 grid grid-cols-2 overflow-hidden rounded-sm border border-line sm:grid-cols-3">
               {[
                 [String(progresso.total), "Campos"],
-                [String(questionario.etapas.length), `${questionario.rotuloEtapa}s`],
+                [String(questionario.etapas.length), questionario.rotuloEtapaPlural ?? `${questionario.rotuloEtapa}s`],
                 [questionario.tempoEstimado, "Tempo estimado"],
               ].map(([n, l]) => (
                 <div key={l} className="border-line bg-panel-raised px-3 py-4 text-center [&+&]:border-l">
