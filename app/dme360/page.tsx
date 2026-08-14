@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DmeWizard } from "@/components/dme360/dme-wizard"
+import { Dme360Client } from "@/components/dme360/dme360-client"
 
 export const metadata: Metadata = {
   title: "DME 360 — Diagnóstico de Maturidade Empresarial | Versak",
@@ -8,9 +8,5 @@ export const metadata: Metadata = {
 }
 
 export default function Dme360Page() {
-  return (
-    <main className="min-h-screen py-10 sm:py-16">
-      <DmeWizard />
-    </main>
-  )
+  return <Dme360Client />
 }
