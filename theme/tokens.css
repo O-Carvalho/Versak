@@ -9,6 +9,9 @@
   --color-panel: #151109;
   --color-panel-raised: #1d1710;
   --color-line: #332b1e;
+  --color-line-soft: #211b12;
+  --color-rail: #100d08;
+  --color-danger: #c0644a;
 
   --color-gold: #e8a93e;
   --color-gold-bright: #f5cc81;
@@ -576,4 +579,267 @@ body {
   border-radius: 999px;
   background: linear-gradient(90deg, var(--color-gold-dim), var(--color-gold));
   transition: width 0.3s ease;
+}
+
+/* ---- Wizard: casca compartilhada (VBS e DME 360) ---- */
+.wz-ambient {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 1100px 700px at 8% -15%, rgba(232, 169, 62, 0.1), transparent 55%),
+    radial-gradient(ellipse 900px 700px at 105% 115%, rgba(232, 169, 62, 0.07), transparent 55%),
+    var(--color-bg);
+}
+.wz-ambient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(var(--color-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line-soft) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 900px 600px at 20% 20%, black, transparent 70%);
+}
+.wz-ghost-ring {
+  position: absolute;
+  right: -160px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 169, 62, 0.1);
+  pointer-events: none;
+}
+.wz-ghost-ring::before {
+  content: "";
+  position: absolute;
+  inset: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 169, 62, 0.08);
+}
+.wz-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 44px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+}
+.wz-eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.wz-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--color-gold);
+}
+.wz-input {
+  width: 100%;
+  background: var(--color-rail);
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  color: var(--color-text);
+  font-size: 15px;
+  padding: 13px 15px;
+  transition: border-color 0.15s;
+}
+.wz-input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+.wz-input::placeholder {
+  color: var(--color-text-dim);
+}
+.wz-btn-gold,
+.wz-btn-ghost {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+  transition: 0.15s;
+}
+.wz-btn-gold {
+  background: var(--color-gold);
+  color: var(--color-bg);
+  font-weight: 600;
+}
+.wz-btn-gold:hover:not(:disabled) {
+  background: var(--color-gold-bright);
+  transform: translateY(-1px);
+}
+.wz-btn-gold:disabled {
+  background: var(--color-line);
+  color: var(--color-text-dim);
+  cursor: not-allowed;
+  transform: none;
+}
+.wz-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--color-line);
+  color: var(--color-text-muted);
+}
+.wz-btn-ghost:hover:not(:disabled) {
+  border-color: var(--color-gold-dim);
+  color: var(--color-text);
+}
+.wz-btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.wz-rail {
+  background: var(--color-rail);
+  border-right: 1px solid var(--color-line);
+  background-image: radial-gradient(ellipse 500px 400px at 30% 0%, rgba(232, 169, 62, 0.08), transparent 60%);
+}
+.wz-ring-bg {
+  fill: none;
+  stroke: var(--color-line);
+  stroke-width: 4;
+}
+.wz-ring-fg {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.wz-dd-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--color-panel-raised);
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  padding: 13px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  color: var(--color-text);
+  text-align: left;
+}
+.wz-dd-toggle:hover {
+  border-color: var(--color-gold-dim);
+}
+.wz-dd-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--color-panel-raised);
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 20;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.18s ease;
+}
+.wz-dd-panel-aberto {
+  max-height: 340px;
+  opacity: 1;
+  pointer-events: auto;
+  overflow-y: auto;
+}
+.wz-dd-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-top: 1px solid var(--color-line-soft);
+  color: var(--color-text-dim);
+  font-size: 13px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+}
+.wz-dd-item:first-child {
+  border-top: none;
+}
+.wz-dd-item:hover {
+  background: var(--color-rail);
+}
+.wz-dd-item-atual {
+  color: var(--color-text);
+  background: var(--color-rail);
+}
+.wz-dd-idx {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.wz-dd-idx-feito {
+  background: var(--color-gold-dim);
+  border-color: var(--color-gold-dim);
+  color: var(--color-bg);
+}
+.wz-dd-idx-atual {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-bg);
+}
+.wz-qcard {
+  border-top: 1px solid var(--color-line-soft);
+  padding: 30px 0;
+}
+.wz-qcard:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.wz-opt {
+  text-align: center;
+  padding: 13px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.12s;
+  background: var(--color-panel);
+  color: var(--color-text-muted);
+  font-size: 13.5px;
+}
+.wz-opt:hover {
+  border-color: var(--color-gold-dim);
+  color: var(--color-text);
+  transform: translateY(-1px);
+}
+.wz-opt-escala {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 14px 4px;
+}
+.wz-opt-ativa {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-bg);
+}
+.wz-erro {
+  color: var(--color-danger);
+  font-size: 13px;
 }
