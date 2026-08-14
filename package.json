@@ -12,7 +12,8 @@
     "setores:fetch": "node scripts/fetch-setores.mjs",
     "dme360:import": "node scripts/import-dme360.mjs",
     "dme360:verify": "tsx scripts/verify-dme360-score.ts",
-    "vbs:import": "node scripts/import-vbs.mjs"
+    "vbs:import": "node scripts/import-vbs.mjs",
+    "vbs:verify": "tsx scripts/verify-vbs.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^1.3.0",
