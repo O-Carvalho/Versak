@@ -85,7 +85,13 @@ export async function POST(request: Request) {
   // 2) E-mail best-effort.
   if (env.resendKey && env.emailTo) {
     try {
-      const { assunto, html } = montarEmailResumo(corpo.lead, pontuacao, DME360_VERSAO, corpo.duracaoSegundos)
+      const { assunto, html } = montarEmailResumo(
+        corpo.lead,
+        pontuacao,
+        DME360_VERSAO,
+        corpo.respostas,
+        corpo.duracaoSegundos,
+      )
       const envio = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.resendKey}`, "Content-Type": "application/json" },
