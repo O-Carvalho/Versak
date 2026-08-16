@@ -17,7 +17,7 @@ const CODIGO_EVENTO_PADRAO = "salto_2026_08_17"
 const MAPA_CAMPO = {
   ID02: { bloco: "identificacao", id: "cargo" },
   EMP02: { bloco: "empresa", id: "cnpj" },
-  PER01: { bloco: "perfil", id: "municipio", placeholder: "Salto de Pirapora" },
+  PER01: { bloco: "perfil", id: "municipio" },
   PER02: { bloco: "perfil", id: "segmento" },
   PER03: { bloco: "perfil", id: "funcionarios" },
   PER04: { bloco: "perfil", id: "faturamento" },

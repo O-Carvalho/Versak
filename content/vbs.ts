@@ -66,8 +66,7 @@ export const VBS_BLOCOS: VbsBloco[] = [
         "id": "municipio",
         "rotulo": "Em qual município a empresa está localizada?",
         "tipo": "texto",
-        "obrigatorio": false,
-        "placeholder": "Salto de Pirapora"
+        "obrigatorio": false
       },
       {
         "id": "segmento",
