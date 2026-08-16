@@ -45,14 +45,17 @@ alter table public.vbs_submissions enable row level security;
 -- Sem policies de propósito: anon/authenticated não leem nem escrevem.
 -- Toda escrita/leitura passa pelo servidor com a service role key.
 
--- Pulso — pesquisa de entrada/saída de um evento (uma pergunta, escala 0-10, anônima).
+-- Pulso — pesquisa de entrada/saída de um evento (uma pergunta, escala 0-10).
 create table public.pulso_submissions (
   id uuid primary key default gen_random_uuid(),
   created_at timestamptz not null default now(),
   tipo text not null check (tipo in ('entrada', 'saida')),
+  nome text not null,
+  email text not null,
   nota integer not null check (nota >= 0 and nota <= 10),
   codigo_evento text,
-  origem text not null default 'link'
+  origem text not null default 'link',
+  email_enviado boolean not null default false
 );
 
 alter table public.pulso_submissions enable row level security;

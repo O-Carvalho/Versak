@@ -5,21 +5,22 @@ import { VBS_CODIGO_EVENTO } from "@/content/vbs"
 
 type Props = {
   tipo: "entrada" | "saida"
-  eyebrow: string
-  titulo: string
   pergunta: string
-  legenda: string
 }
 
 const NOTAS = Array.from({ length: 11 }, (_, n) => n)
 
-export function PulsoClient({ tipo, eyebrow, titulo, pergunta, legenda }: Props) {
+export function PulsoClient({ tipo, pergunta }: Props) {
+  const [nome, setNome] = useState("")
+  const [email, setEmail] = useState("")
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
 
+  const identificacaoValida = nome.trim().length >= 2 && /.+@.+\..+/.test(email)
+
   async function responder(nota: number) {
-    if (enviando || enviado) return
+    if (enviando || enviado || !identificacaoValida) return
     setEnviando(true)
     setErro(null)
     try {
@@ -27,7 +28,14 @@ export function PulsoClient({ tipo, eyebrow, titulo, pergunta, legenda }: Props)
       const resposta = await fetch("/api/pulso", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tipo, nota, codigoEvento: VBS_CODIGO_EVENTO, origem: origem.slice(0, 50) }),
+        body: JSON.stringify({
+          tipo,
+          nome: nome.trim(),
+          email: email.trim(),
+          nota,
+          codigoEvento: VBS_CODIGO_EVENTO,
+          origem: origem.slice(0, 50),
+        }),
       })
       const json = (await resposta.json()) as { ok: boolean; erro?: string }
       if (!resposta.ok || !json.ok) throw new Error(json.erro ?? "Falha no envio.")
@@ -45,19 +53,35 @@ export function PulsoClient({ tipo, eyebrow, titulo, pergunta, legenda }: Props)
       <div className="relative z-10 w-full max-w-[560px]">
         <div className="wz-card !p-7 text-center sm:!p-11">
           {enviado ? (
-            <>
-              <p className="wz-eyebrow justify-center">Obrigado</p>
-              <h1 className="mt-4 text-[26px] font-semibold italic">Resposta registrada!</h1>
-              <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-text-muted">
-                Sua resposta ajuda a gente a entender melhor o momento do grupo. Pode voltar pra masterclass.
-              </p>
-            </>
+            <h1 className="text-[26px] font-semibold italic">Obrigado!</h1>
           ) : (
             <>
-              <p className="wz-eyebrow justify-center">{eyebrow}</p>
-              <h1 className="mt-4 text-[22px] font-semibold italic leading-tight sm:text-[26px]">{titulo}</h1>
-              <p className="mx-auto mt-4 max-w-sm text-[15px] leading-relaxed text-text">{pergunta}</p>
-              <p className="mt-3 text-xs text-text-dim">{legenda}</p>
+              <div className="mx-auto mb-6 grid max-w-sm gap-3 text-left sm:grid-cols-2">
+                <label className="flex flex-col gap-1.5">
+                  <span className="font-display text-[10.5px] uppercase tracking-[0.12em] text-text-muted">
+                    Nome*
+                  </span>
+                  <input
+                    type="text"
+                    className="wz-input"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </label>
+                <label className="flex flex-col gap-1.5">
+                  <span className="font-display text-[10.5px] uppercase tracking-[0.12em] text-text-muted">
+                    E-mail*
+                  </span>
+                  <input
+                    type="email"
+                    className="wz-input"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <p className="mx-auto max-w-sm text-[15px] leading-relaxed text-text">{pergunta}</p>
 
               <div
                 role="group"
@@ -69,7 +93,7 @@ export function PulsoClient({ tipo, eyebrow, titulo, pergunta, legenda }: Props)
                   <button
                     key={n}
                     type="button"
-                    disabled={enviando}
+                    disabled={enviando || !identificacaoValida}
                     aria-pressed={false}
                     onClick={() => responder(n)}
                     className="wz-opt wz-opt-escala"
