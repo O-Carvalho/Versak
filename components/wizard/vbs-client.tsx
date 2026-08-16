@@ -28,8 +28,9 @@ export function VbsClient() {
           <p className="wz-eyebrow justify-center">Ficha recebida</p>
           <h1 className="mt-4 text-[26px] font-semibold italic">Obrigado! Recebemos o seu snapshot.</h1>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-text-muted">
-            A equipe Versak vai analisar as respostas e entrar em contato para apresentar a leitura do cenário da sua
-            empresa e os próximos passos.
+            A equipe Versak vai analisar as respostas e, em até <strong className="text-text">3 dias úteis</strong>,
+            entrar em contato por e-mail e WhatsApp com uma avaliação gratuita do cenário da sua empresa e sugestões
+            de próximos passos.
           </p>
           <a
             href={linkWhatsapp("Olá! Acabei de enviar o VBS e gostaria de conversar sobre o resultado.")}
