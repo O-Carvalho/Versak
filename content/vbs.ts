@@ -111,8 +111,7 @@ export const VBS_BLOCOS: VbsBloco[] = [
           "R$ 1–4,8 mi",
           "R$ 4,8–20 mi",
           "R$ 20–100 mi",
-          "Acima de R$ 100 mi",
-          "Prefiro não informar"
+          "Acima de R$ 100 mi"
         ]
       },
       {

@@ -48,6 +48,11 @@ const MAPA_CAMPO = {
 // Campos opcionais (todo o resto do MAPA_CAMPO é obrigatório).
 const OPCIONAIS = new Set(["PER01", "EMP02"])
 
+// Opções da planilha que o Victor pediu pra remover de campos específicos.
+const OPCOES_REMOVIDAS = {
+  PER04: ["Prefiro não informar"],
+}
+
 const NOME_BLOCO = {
   identificacao: "Identificação",
   empresa: "Empresa",
@@ -126,10 +131,12 @@ for (const row of linhas.slice(2)) {
   if (idStr === "AUT01") {
     campo.opcoes = Array.from({ length: 11 }, (_, n) => String(n))
   } else if (tipoCampo === "opcoes" || tipoCampo === "multipla-escolha") {
+    const removidas = new Set(OPCOES_REMOVIDAS[idStr] ?? [])
     const opcoes = String(opcoesTexto ?? "")
       .split("|")
       .map((s) => s.trim())
       .filter(Boolean)
+      .filter((o) => !removidas.has(o))
     if (opcoes.length === 0) throw new Error(`Sem opções para o campo ${idStr}`)
     campo.opcoes = opcoes
   }
