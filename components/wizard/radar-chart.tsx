@@ -5,9 +5,9 @@ type Props = {
   notaMaxima: number
 }
 
-const TAMANHO = 300
+const TAMANHO = 360
 const CENTRO = TAMANHO / 2
-const RAIO_MAX = 100
+const RAIO_MAX = 95
 
 function pontoEixo(indice: number, total: number, raio: number): [number, number] {
   const angulo = -Math.PI / 2 + indice * ((2 * Math.PI) / total)

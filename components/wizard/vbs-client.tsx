@@ -35,7 +35,7 @@ export function VbsClient() {
             notaMaxima={pontuacao.notaMaxima}
           />
           <p className="mx-auto -mt-2 max-w-md text-xs leading-relaxed text-text-dim">
-            Leitura rápida e informal a partir das suas respostas — não substitui a análise completa que a equipe
+            Leitura rápida e informal a partir das suas respostas, não substitui a análise completa que a equipe
             Versak vai te trazer.
           </p>
 
