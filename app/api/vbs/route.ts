@@ -7,18 +7,25 @@ import type { Respostas } from "@/lib/wizard-types"
 export const maxDuration = 10
 
 // O gabarito de respostas vem do próprio questionário: campo obrigatório é
-// exigido; campo de opções só aceita um dos valores da sua lista.
+// exigido; campo de opções só aceita um dos valores da sua lista; múltipla
+// escolha vira um array de opções válidas.
 const respostasShape: Record<string, z.ZodTypeAny> = {}
 for (const etapa of VBS_QUESTIONARIO.etapas) {
   for (const campo of etapa.campos) {
     let esquema: z.ZodTypeAny
-    if (campo.opcoes && campo.opcoes.length > 0) {
+    if (campo.tipo === "multipla-escolha" && campo.opcoes) {
       const validos = campo.opcoes.map((o) => String(o.valor))
-      esquema = z.string().refine((v) => validos.includes(v), { message: `Opção inválida em ${campo.chave}` })
+      const item = z.string().refine((v) => validos.includes(v), { message: `Opção inválida em ${campo.chave}` })
+      esquema = campo.obrigatorio ? z.array(item).min(1) : z.array(item).optional()
+    } else if (campo.opcoes && campo.opcoes.length > 0) {
+      const validos = campo.opcoes.map((o) => String(o.valor))
+      const base = z.string().refine((v) => validos.includes(v), { message: `Opção inválida em ${campo.chave}` })
+      esquema = campo.obrigatorio ? base : base.optional()
     } else {
-      esquema = z.string().trim().min(1).max(2000)
+      const base = z.string().trim().min(1).max(2000)
+      esquema = campo.obrigatorio ? base : base.optional()
     }
-    respostasShape[campo.chave] = campo.obrigatorio ? esquema : esquema.optional()
+    respostasShape[campo.chave] = esquema
   }
 }
 
@@ -29,10 +36,13 @@ const corpoSchema = z.object({
     email: z.string().trim().email().max(200),
     whatsapp: z.string().trim().min(10).max(30),
     consentimento: z.literal(true),
+    consentimentoAnonimo: z.literal(true),
+    consentimentoContato: z.literal(true),
   }),
   respostas: z.object(respostasShape),
   duracaoSegundos: z.number().int().nonnegative().optional(),
   origem: z.string().trim().max(50).optional(),
+  codigoEvento: z.string().trim().max(50).optional(),
 })
 
 export async function POST(request: Request) {
@@ -60,10 +70,13 @@ export async function POST(request: Request) {
     email: corpo.lead.email,
     whatsapp: corpo.lead.whatsapp,
     consentimento: corpo.lead.consentimento,
+    consentimento_anonimo: corpo.lead.consentimentoAnonimo,
+    consentimento_contato: corpo.lead.consentimentoContato,
     respostas: corpo.respostas,
     questionario_versao: VBS_QUESTIONARIO.versao,
     duracao_segundos: corpo.duracaoSegundos ?? null,
     origem: corpo.origem ?? "link",
+    codigo_evento: corpo.codigoEvento ?? null,
     email_enviado: false,
   }
 
@@ -93,6 +106,7 @@ export async function POST(request: Request) {
         VBS_QUESTIONARIO,
         corpo.respostas as Respostas,
         corpo.duracaoSegundos,
+        corpo.codigoEvento,
       )
       const envio = await fetch("https://api.resend.com/emails", {
         method: "POST",

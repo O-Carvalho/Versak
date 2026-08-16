@@ -4,8 +4,8 @@ import type { Campo } from "@/lib/wizard-types"
 
 type Props = {
   campo: Campo
-  valor: string | number | undefined
-  onChange: (valor: string | number) => void
+  valor: string | number | string[] | undefined
+  onChange: (valor: string | number | string[]) => void
 }
 
 export function CampoInput({ campo, valor, onChange }: Props) {
@@ -16,7 +16,8 @@ export function CampoInput({ campo, valor, onChange }: Props) {
       <div
         role="group"
         aria-label={campo.rotulo}
-        className={escala ? "grid grid-cols-5 gap-2" : "flex flex-wrap gap-2"}
+        className={escala ? "grid gap-2" : "flex flex-wrap gap-2"}
+        style={escala ? { gridTemplateColumns: "repeat(auto-fit, minmax(48px, 1fr))" } : undefined}
       >
         {opcoes.map((opcao) => {
           const ativa = valor === opcao.valor
@@ -38,13 +39,42 @@ export function CampoInput({ campo, valor, onChange }: Props) {
     )
   }
 
+  if (campo.tipo === "multipla-escolha") {
+    const opcoes = campo.opcoes ?? []
+    const selecionadas = Array.isArray(valor) ? valor : []
+    return (
+      <div role="group" aria-label={campo.rotulo} className="flex flex-wrap gap-2">
+        {opcoes.map((opcao) => {
+          const chaveOpcao = String(opcao.valor)
+          const ativa = selecionadas.includes(chaveOpcao)
+          return (
+            <button
+              key={chaveOpcao}
+              type="button"
+              title={opcao.descricao}
+              aria-pressed={ativa}
+              onClick={() =>
+                onChange(
+                  ativa ? selecionadas.filter((v) => v !== chaveOpcao) : [...selecionadas, chaveOpcao],
+                )
+              }
+              className={`wz-opt ${ativa ? "wz-opt-ativa" : ""}`}
+            >
+              <span>{opcao.rotulo}</span>
+            </button>
+          )
+        })}
+      </div>
+    )
+  }
+
   if (campo.tipo === "texto-longo") {
     return (
       <textarea
         id={campo.chave}
         className="wz-input"
         rows={3}
-        value={String(valor ?? "")}
+        value={typeof valor === "string" ? valor : ""}
         placeholder={campo.placeholder}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -56,7 +86,7 @@ export function CampoInput({ campo, valor, onChange }: Props) {
       id={campo.chave}
       type={campo.tipo === "numero" ? "number" : "text"}
       className="wz-input"
-      value={String(valor ?? "")}
+      value={typeof valor === "string" || typeof valor === "number" ? String(valor) : ""}
       placeholder={campo.placeholder}
       onChange={(e) => onChange(e.target.value)}
     />

@@ -1,9 +1,10 @@
 import type { Campo, Etapa, Questionario, Respostas } from "./wizard-types"
 
-/** Uma resposta conta como dada quando não é undefined nem string vazia. */
-export function respondido(valor: string | number | undefined): boolean {
+/** Uma resposta conta como dada quando não é undefined, string vazia, nem array vazio (múltipla escolha). */
+export function respondido(valor: string | number | string[] | undefined): boolean {
   if (valor === undefined) return false
   if (typeof valor === "string") return valor.trim() !== ""
+  if (Array.isArray(valor)) return valor.length > 0
   return true
 }
 

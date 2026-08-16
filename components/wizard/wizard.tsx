@@ -13,6 +13,7 @@ export type WizardEnvioDados = {
   respostas: Respostas
   duracaoSegundos: number
   origem: string
+  codigoEvento?: string
 }
 
 export type WizardProps<TResultado> = {
@@ -24,7 +25,16 @@ export type WizardProps<TResultado> = {
   telaFinal: (resultado: TResultado) => ReactNode
 }
 
-const LEAD_VAZIO: WizardLead = { nome: "", empresa: "", cargo: "", email: "", whatsapp: "", consentimento: false }
+const LEAD_VAZIO: WizardLead = {
+  nome: "",
+  empresa: "",
+  cargo: "",
+  email: "",
+  whatsapp: "",
+  consentimento: false,
+  consentimentoAnonimo: false,
+  consentimentoContato: false,
+}
 
 export function Wizard<TResultado>({
   questionario,
@@ -47,6 +57,7 @@ export function Wizard<TResultado>({
   const [erroEnvio, setErroEnvio] = useState<string | null>(null)
   const [resultado, setResultado] = useState<TResultado | null>(null)
   const origemRef = useRef("link")
+  const codigoEventoRef = useRef(questionario.codigoEvento)
 
   // Carrega rascunho e origem uma única vez.
   useEffect(() => {
@@ -59,8 +70,11 @@ export function Wizard<TResultado>({
       setIniciadoEm(inicial.iniciadoEm)
       if (Object.keys(inicial.respostas).length > 0) setRetomado(true)
     }
-    const origem = new URLSearchParams(window.location.search).get("o")
+    const params = new URLSearchParams(window.location.search)
+    const origem = params.get("o")
     if (origem) origemRef.current = origem.slice(0, 50)
+    const evento = params.get("evento")
+    if (evento) codigoEventoRef.current = evento.slice(0, 50)
     setRestaurado(true)
   }, [pronto, inicial])
 
@@ -80,14 +94,20 @@ export function Wizard<TResultado>({
   const ultimaEtapa = etapaAtual === questionario.etapas.length - 1
   const tudoCompleto = questionario.etapas.every((e) => etapaCompleta(e, respostas))
 
+  const consentimentosExtrasObrigatorios = (questionario.consentimentosExtras ?? []).filter((c) => c.obrigatorio)
+  const extrasValidos = consentimentosExtrasObrigatorios.every((c) =>
+    c.chave === "anonimo" ? lead.consentimentoAnonimo : lead.consentimentoContato,
+  )
+
   const leadValido =
     lead.nome.trim().length >= 2 &&
     lead.empresa.trim().length >= 2 &&
     /.+@.+\..+/.test(lead.email) &&
     lead.whatsapp.replace(/\D/g, "").length >= 10 &&
-    lead.consentimento
+    lead.consentimento &&
+    extrasValidos
 
-  const responder = useCallback((chave: string, valor: string | number) => {
+  const responder = useCallback((chave: string, valor: string | number | string[]) => {
     setRespostas((r) => ({ ...r, [chave]: valor }))
   }, [])
 
@@ -106,10 +126,11 @@ export function Wizard<TResultado>({
     setEnviando(true)
     setErroEnvio(null)
     try {
-      // Campos de texto opcionais vazios não são enviados.
+      // Campos de texto opcionais vazios (ou múltipla escolha sem seleção) não são enviados.
       const limpas: Respostas = {}
       for (const [chave, valor] of Object.entries(respostas)) {
         if (typeof valor === "string" && valor.trim() === "") continue
+        if (Array.isArray(valor) && valor.length === 0) continue
         limpas[chave] = typeof valor === "string" ? valor.trim() : valor
       }
       const res = await onEnviar({
@@ -120,10 +141,13 @@ export function Wizard<TResultado>({
           email: lead.email.trim(),
           whatsapp: lead.whatsapp.trim(),
           consentimento: true,
+          consentimentoAnonimo: lead.consentimentoAnonimo ? true : undefined,
+          consentimentoContato: lead.consentimentoContato ? true : undefined,
         },
         respostas: limpas,
         duracaoSegundos: Math.max(0, Math.round((Date.now() - iniciadoEm) / 1000)),
         origem: origemRef.current,
+        codigoEvento: codigoEventoRef.current,
       })
       limpar()
       setResultado(res)
@@ -139,7 +163,13 @@ export function Wizard<TResultado>({
 
   // ---------- Abertura ----------
   if (tela === "abertura") {
-    type CampoLead = readonly [Exclude<keyof WizardLead, "consentimento">, string, string, string, boolean]
+    type CampoLead = readonly [
+      Exclude<keyof WizardLead, "consentimento" | "consentimentoAnonimo" | "consentimentoContato">,
+      string,
+      string,
+      string,
+      boolean,
+    ]
     const camposBase: CampoLead[] = [
       ["nome", "Seu nome", "text", "Como podemos te chamar", true],
       ["empresa", "Empresa", "text", "Nome da empresa avaliada", true],
@@ -192,15 +222,34 @@ export function Wizard<TResultado>({
               ))}
             </div>
 
-            <label className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-text-dim">
-              <input
-                type="checkbox"
-                className="mt-0.5"
-                checked={lead.consentimento}
-                onChange={(e) => setLead((l) => ({ ...l, consentimento: e.target.checked }))}
-              />
-              Autorizo a Versak a usar estes dados para me apresentar o resultado e entrar em contato.*
-            </label>
+            <div className="mt-5 flex flex-col gap-3">
+              <label className="flex items-start gap-2 text-xs leading-relaxed text-text-dim">
+                <input
+                  type="checkbox"
+                  className="mt-0.5"
+                  checked={lead.consentimento}
+                  onChange={(e) => setLead((l) => ({ ...l, consentimento: e.target.checked }))}
+                />
+                {questionario.consentimentoTexto ??
+                  "Autorizo a Versak a usar estes dados para me apresentar o resultado e entrar em contato."}
+                *
+              </label>
+              {(questionario.consentimentosExtras ?? []).map((c) => {
+                const campo = c.chave === "anonimo" ? "consentimentoAnonimo" : "consentimentoContato"
+                return (
+                  <label key={c.chave} className="flex items-start gap-2 text-xs leading-relaxed text-text-dim">
+                    <input
+                      type="checkbox"
+                      className="mt-0.5"
+                      checked={Boolean(lead[campo])}
+                      onChange={(e) => setLead((l) => ({ ...l, [campo]: e.target.checked }))}
+                    />
+                    {c.texto}
+                    {c.obrigatorio && "*"}
+                  </label>
+                )
+              })}
+            </div>
 
             <p className="mt-4 text-xs leading-relaxed text-text-dim">
               Seu progresso é salvo automaticamente. Se fechar a aba, retoma exatamente de onde parou, neste mesmo
@@ -339,7 +388,7 @@ export function Wizard<TResultado>({
                     {!campo.obrigatorio && <span className="ml-2 text-xs text-text-dim">(opcional)</span>}
                   </>
                 )
-                const usaLabel = campo.tipo !== "opcoes" && campo.tipo !== "escala"
+                const usaLabel = campo.tipo !== "opcoes" && campo.tipo !== "escala" && campo.tipo !== "multipla-escolha"
                 return (
                   <div key={campo.chave} className="wz-qcard">
                     {usaLabel ? (
