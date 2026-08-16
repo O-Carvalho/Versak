@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { z } from "zod"
 import { montarEmailVbs } from "@/lib/vbs-email"
+import { calcularPontuacaoVbs } from "@/lib/vbs-score"
 import { VBS_QUESTIONARIO } from "@/lib/vbs-questionario"
 import type { Respostas } from "@/lib/wizard-types"
 
@@ -133,5 +134,6 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true })
+  const pontuacao = calcularPontuacaoVbs(corpo.respostas as Respostas)
+  return NextResponse.json({ ok: true, pontuacao })
 }
