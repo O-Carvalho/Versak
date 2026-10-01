@@ -57,7 +57,7 @@ export function Wizard<TResultado>({
   const [erroEnvio, setErroEnvio] = useState<string | null>(null)
   const [resultado, setResultado] = useState<TResultado | null>(null)
   const origemRef = useRef("link")
-  const codigoEventoRef = useRef(questionario.codigoEvento)
+  const codigoEventoRef = useRef<string | undefined>(undefined)
 
   // Carrega rascunho e origem uma única vez.
   useEffect(() => {

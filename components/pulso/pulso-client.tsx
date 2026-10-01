@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { VBS_CODIGO_EVENTO } from "@/content/vbs"
 
 type Props = {
   tipo: "entrada" | "saida"
@@ -24,7 +23,9 @@ export function PulsoClient({ tipo, pergunta }: Props) {
     setEnviando(true)
     setErro(null)
     try {
-      const origem = new URLSearchParams(window.location.search).get("o") ?? "link"
+      const params = new URLSearchParams(window.location.search)
+      const origem = params.get("o") ?? "link"
+      const codigoEvento = params.get("evento")?.slice(0, 50) || undefined
       const resposta = await fetch("/api/pulso", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,7 +34,7 @@ export function PulsoClient({ tipo, pergunta }: Props) {
           nome: nome.trim(),
           email: email.trim(),
           nota,
-          codigoEvento: VBS_CODIGO_EVENTO,
+          codigoEvento,
           origem: origem.slice(0, 50),
         }),
       })

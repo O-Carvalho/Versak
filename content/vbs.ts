@@ -12,7 +12,6 @@ export type VbsBloco = { id: string; nome: string; campos: VbsCampo[] }
 export type VbsConsentimentoExtra = { chave: "anonimo" | "contato"; texto: string; obrigatorio: boolean }
 
 export const VBS_VERSAO = "vbs-r2"
-export const VBS_CODIGO_EVENTO = "salto_2026_08_17"
 export const VBS_CONSENTIMENTO_TEXTO = "Li a Política de Privacidade e concordo com o tratamento dos dados para gerar e entregar minha fotografia empresarial."
 export const VBS_CONSENTIMENTOS_EXTRAS: VbsConsentimentoExtra[] = [
   {

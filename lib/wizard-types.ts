@@ -43,7 +43,6 @@ export type Questionario = {
   capturarCargoNaAbertura?: boolean // pede "Cargo / função" na tela de abertura (quando o questionário não já pergunta isso em algum bloco)
   consentimentoTexto?: string // texto do consentimento principal; se ausente, usa o texto genérico padrão
   consentimentosExtras?: ConsentimentoExtra[] // consentimentos adicionais além do principal (ex.: uso anônimo, contato)
-  codigoEvento?: string // valor padrão do campo oculto "código do evento", quando o questionário representa um evento único
   etapas: Etapa[]
 }
 

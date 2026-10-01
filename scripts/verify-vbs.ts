@@ -17,7 +17,7 @@ const todosCampos = q.etapas.flatMap((e) => e.campos)
 espera("10 etapas", q.etapas.length === 10, String(q.etapas.length))
 espera("28 campos", todosCampos.length === 28, String(todosCampos.length))
 espera("versao vbs-r2", q.versao === "vbs-r2", q.versao)
-espera("codigo do evento definido", Boolean(q.codigoEvento), String(q.codigoEvento))
+espera("sem código de evento fixo (uso em escala; evento só via ?evento= no link)", !("codigoEvento" in q))
 espera("consentimento principal definido", Boolean(q.consentimentoTexto))
 espera(
   "2 consentimentos extras (anonimo + contato)",

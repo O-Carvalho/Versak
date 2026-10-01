@@ -10,7 +10,6 @@ import * as XLSX from "xlsx"
 
 const ARQUIVO = process.argv[2] ?? "C:/Users/mathe/Downloads/BANCO DE PERGUNTAS — VBS REV. 2.0 (1).xlsx"
 const VERSAO = "vbs-r2"
-const CODIGO_EVENTO_PADRAO = "salto_2026_08_17"
 
 // ID da planilha -> { bloco de destino, id do campo no nosso sistema, placeholder opcional }
 // IDs ausentes daqui (SYS*, CON*, ID01/03/04, EMP01) são tratados fora do conteúdo gerado.
@@ -82,10 +81,10 @@ const wb = XLSX.read(readFileSync(ARQUIVO), { type: "buffer" })
 const linhas = XLSX.utils.sheet_to_json(wb.Sheets["Planilha1"], { header: 1, defval: "" })
 
 // Consentimentos: CON01 vira o texto do checkbox principal; CON02/CON03 viram
-// consentimentosExtras. Código do evento vem de SYS02 (com fallback fixo).
+// consentimentosExtras. SYS01/SYS02 (origem e código do evento) não viram
+// padrão: o VBS é de uso contínuo, e esses valores vêm do link (?o= e ?evento=).
 let consentimentoTexto = null
 const consentimentosExtras = []
-let codigoEvento = CODIGO_EVENTO_PADRAO
 
 const camposPorBloco = new Map(ORDEM_BLOCOS.map((id) => [id, []]))
 
@@ -95,11 +94,6 @@ for (const row of linhas.slice(2)) {
   if (!idStr) continue
   const perguntaStr = String(pergunta ?? "").trim()
 
-  if (idStr === "SYS02") {
-    const valor = String(opcoesTexto ?? "").trim()
-    if (valor) codigoEvento = valor
-    continue
-  }
   if (idStr === "CON01") {
     consentimentoTexto = perguntaStr
     continue
@@ -158,7 +152,7 @@ const blocos = ORDEM_BLOCOS.map((id) => {
 })
 
 const total = blocos.reduce((a, b) => a + b.campos.length, 0)
-console.log(`Blocos: ${blocos.length} | Campos: ${total} | Código do evento: ${codigoEvento}`)
+console.log(`Blocos: ${blocos.length} | Campos: ${total}`)
 
 const ts = `// GERADO por scripts/import-vbs.mjs — não editar à mão. Fonte: ${ARQUIVO.split(/[\\/]/).pop()}
 export type VbsTipoCampo = "texto" | "texto-longo" | "numero" | "opcoes" | "escala" | "multipla-escolha"
@@ -174,7 +168,6 @@ export type VbsBloco = { id: string; nome: string; campos: VbsCampo[] }
 export type VbsConsentimentoExtra = { chave: "anonimo" | "contato"; texto: string; obrigatorio: boolean }
 
 export const VBS_VERSAO = ${JSON.stringify(VERSAO)}
-export const VBS_CODIGO_EVENTO = ${JSON.stringify(codigoEvento)}
 export const VBS_CONSENTIMENTO_TEXTO = ${JSON.stringify(consentimentoTexto)}
 export const VBS_CONSENTIMENTOS_EXTRAS: VbsConsentimentoExtra[] = ${JSON.stringify(consentimentosExtras, null, 2)}
 export const VBS_BLOCOS: VbsBloco[] = ${JSON.stringify(blocos, null, 2)}

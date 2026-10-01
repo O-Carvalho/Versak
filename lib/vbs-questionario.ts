@@ -1,10 +1,4 @@
-import {
-  VBS_BLOCOS,
-  VBS_CODIGO_EVENTO,
-  VBS_CONSENTIMENTO_TEXTO,
-  VBS_CONSENTIMENTOS_EXTRAS,
-  VBS_VERSAO,
-} from "../content/vbs"
+import { VBS_BLOCOS, VBS_CONSENTIMENTO_TEXTO, VBS_CONSENTIMENTOS_EXTRAS, VBS_VERSAO } from "../content/vbs"
 import type { Campo, Etapa, Questionario } from "./wizard-types"
 
 export const VBS_QUESTIONARIO: Questionario = {
@@ -15,7 +9,6 @@ export const VBS_QUESTIONARIO: Questionario = {
   tempoEstimado: "5 a 10 minutos",
   consentimentoTexto: VBS_CONSENTIMENTO_TEXTO,
   consentimentosExtras: VBS_CONSENTIMENTOS_EXTRAS,
-  codigoEvento: VBS_CODIGO_EVENTO,
   etapas: VBS_BLOCOS.map(
     (bloco): Etapa => ({
       id: bloco.id,
